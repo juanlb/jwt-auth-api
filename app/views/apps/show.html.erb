@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @app.name %>
+</p>
+
+<p>
+  <strong>App key:</strong>
+  <%= @app.app_key %>
+</p>
+
+<p>
+  <strong>Permissions:</strong>
+  <%= @app.permissions %>
+</p>
+
+<p>
+  <strong>Jwt secret:</strong>
+  <%= @app.jwt_secret %>
+</p>
+
+<p>
+  <strong>Tiemout:</strong>
+  <%= @app.tiemout %>
+</p>
+
+<%= link_to 'Edit', edit_app_path(@app) %> |
+<%= link_to 'Back', apps_path %>
