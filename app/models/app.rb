@@ -1,9 +1,14 @@
 class App < ApplicationRecord
-    validates :name, :app_key, :jwt_secret, uniqueness: true
-    validates :name, :timeout, presence: true
+    before_validation :set_secrets, on: :create
 
-    before_create do
-        self.app_key = "#{self.name.parameterize}-#{SecureRandom.hex(64)[0..24]}"
-        self.jwt_secret = SecureRandom.hex(64)
+    validates :name, :app_key, :jwt_secret, uniqueness: true
+    validates :name, :timeout, :app_key, :jwt_secret, presence: true
+
+    private
+
+    def set_secrets
+        self.app_key = "#{self.name.parameterize}-#{SecretMaker.generate(24)}" if self.name
+        self.jwt_secret = SecretMaker.generate
     end
+
 end

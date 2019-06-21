@@ -14,9 +14,7 @@ RSpec.describe "apps/show", type: :view do
   it "renders attributes in <p>" do
     render
     expect(rendered).to match(/Name/)
-    expect(rendered).to match(/App Key/)
     expect(rendered).to match(/Permissions/)
-    expect(rendered).to match(/Jwt Secret/)
     expect(rendered).to match(/2/)
   end
 end

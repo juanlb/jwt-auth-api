@@ -18,11 +18,7 @@ RSpec.describe "apps/edit", type: :view do
 
       assert_select "input[name=?]", "app[name]"
 
-      assert_select "input[name=?]", "app[app_key]"
-
       assert_select "input[name=?]", "app[permissions]"
-
-      assert_select "input[name=?]", "app[jwt_secret]"
 
       assert_select "input[name=?]", "app[timeout]"
     end
