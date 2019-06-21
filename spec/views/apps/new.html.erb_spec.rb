@@ -7,7 +7,7 @@ RSpec.describe "apps/new", type: :view do
       :app_key => "MyString",
       :permissions => "MyString",
       :jwt_secret => "MyString",
-      :tiemout => 1
+      :timeout => 1
     ))
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "apps/new", type: :view do
 
       assert_select "input[name=?]", "app[jwt_secret]"
 
-      assert_select "input[name=?]", "app[tiemout]"
+      assert_select "input[name=?]", "app[timeout]"
     end
   end
 end

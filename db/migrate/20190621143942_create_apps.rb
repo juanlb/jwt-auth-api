@@ -5,7 +5,7 @@ class CreateApps < ActiveRecord::Migration[5.2]
       t.string :app_key
       t.string :permissions
       t.string :jwt_secret
-      t.integer :tiemout
+      t.integer :timeout
 
       t.timestamps
     end

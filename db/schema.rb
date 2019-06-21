@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_06_21_143942) do
     t.string "app_key"
     t.string "permissions"
     t.string "jwt_secret"
-    t.integer "tiemout"
+    t.integer "timeout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

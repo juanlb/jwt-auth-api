@@ -14,7 +14,7 @@ class AppsController < ApplicationController
 
   # GET /apps/new
   def new
-    @app = App.new
+    @app = App.new(timeout: ENV.fetch("DEFAULT_TOKEN_TIMEOUT") { 5 })
   end
 
   # GET /apps/1/edit
@@ -69,6 +69,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :app_key, :permissions, :jwt_secret, :tiemout)
+      params.require(:app).permit(:name, :app_key, :permissions, :jwt_secret, :timeout)
     end
 end

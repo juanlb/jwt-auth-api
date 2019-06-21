@@ -8,14 +8,14 @@ RSpec.describe "apps/index", type: :view do
         :app_key => "App Key",
         :permissions => "Permissions",
         :jwt_secret => "Jwt Secret",
-        :tiemout => 2
+        :timeout => 2
       ),
       App.create!(
         :name => "Name",
         :app_key => "App Key",
         :permissions => "Permissions",
         :jwt_secret => "Jwt Secret",
-        :tiemout => 2
+        :timeout => 2
       )
     ])
   end
