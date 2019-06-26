@@ -18,7 +18,7 @@ RSpec.describe "apps/edit", type: :view do
 
       assert_select "input[name=?]", "app[name]"
 
-      assert_select "input[name=?]", "app[permissions]"
+      assert_select "textarea[name=?]", "app[permissions]"
 
       assert_select "input[name=?]", "app[timeout]"
     end

@@ -40,6 +40,26 @@ RSpec.describe App, type: :model do
         expect(subject.permissions).to eq({ attr1: %w[value1 value2] }.to_json)
       end
     end
+
+    context 'with invalid permission json' do
+      subject do
+        create(:app, permissions: '{"invalid": "json"}')
+      end
+      
+      it 'raise validation error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
+    context 'with malformed permission json' do
+      subject do
+        create(:app, permissions: 'malformed')
+      end
+
+      it 'raise validation error' do
+        expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
   end
 
   describe '#edit' do

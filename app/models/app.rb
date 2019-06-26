@@ -9,11 +9,12 @@ class App < ApplicationRecord
   validates :name, :timeout, :app_key, :jwt_secret, presence: true
   validates :permissions, json: { schema: JSON_SCHEMA }
 
-
   serialize :permissions, Hash
 
   def permissions=(value)
     write_attribute(:permissions, JSON.parse(value))
+  rescue StandardError
+    write_attribute(:permissions, JSON.parse('{"invalid": "json"}'))
   end
 
   def permissions
