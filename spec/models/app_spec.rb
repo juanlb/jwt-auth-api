@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe App, type: :model do
@@ -14,12 +16,12 @@ RSpec.describe App, type: :model do
   end
 
   describe 'Uniqueness validations' do
-    subject{build(:app)}
+    subject { build(:app) }
     it { should validate_uniqueness_of(:name) }
   end
 
   describe '#create' do
-    let!(:name) {'App Name'}
+    let!(:name) { 'App Name' }
 
     context 'with a "App Name" name' do
       subject do
@@ -32,6 +34,21 @@ RSpec.describe App, type: :model do
 
       it 'jwt_secret be something' do
         expect(subject.jwt_secret).not_to be_empty
+      end
+
+      it 'permissions be an Hash' do
+        expect(subject.permissions).to eq({ attr1: %w[value1 value2] }.to_json)
+      end
+    end
+  end
+
+  describe '#edit' do
+    context 'edit name' do
+      subject { create(:app) }
+
+      it 'dont change jwt secret' do
+        subject.name = 'otro'
+        expect { subject.save }.to_not change { subject.reload.jwt_secret }
       end
     end
   end

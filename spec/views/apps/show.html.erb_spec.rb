@@ -5,7 +5,7 @@ RSpec.describe "apps/show", type: :view do
     @app = assign(:app, App.create!(
       :name => "Name",
       :app_key => "App Key",
-      :permissions => "Permissions",
+      :permissions => '{"key1": ["value1", "value2"], "key2": ["value1", "value2"]}',
       :jwt_secret => "Jwt Secret",
       :timeout => 2
     ))

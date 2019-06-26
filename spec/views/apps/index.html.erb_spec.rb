@@ -5,12 +5,12 @@ RSpec.describe "apps/index", type: :view do
     assign(:apps, [
       App.create!(
         :name => "Name",
-        :permissions => "Permissions",
+        :permissions => '{"key1": ["value1", "value2"], "key2": ["value1", "value2"]}',
         :timeout => 2
       ),
       App.create!(
         :name => "Name2",
-        :permissions => "Permissions",
+        :permissions => '{"key1": ["value1", "value2"], "key2": ["value1", "value2"]}',
         :timeout => 2
       )
     ])
@@ -20,7 +20,7 @@ RSpec.describe "apps/index", type: :view do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 1
     assert_select "tr>td", :text => "Name2".to_s, :count => 1
-    assert_select "tr>td", :text => "Permissions".to_s, :count => 2
+    assert_select "tr>td", :text => '{"key1":["value1","value2"],"key2":["value1","value2"]}'.to_s, :count => 2
     assert_select "tr>td", :text => 2.to_s, :count => 2
   end
 end

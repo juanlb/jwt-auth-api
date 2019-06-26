@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_06_21_143942) do
   create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "app_key"
-    t.string "permissions"
+    t.string "permissions", default: "--- {}\n"
     t.string "jwt_secret"
     t.integer "timeout"
     t.datetime "created_at", null: false

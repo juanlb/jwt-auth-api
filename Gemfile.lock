@@ -33,6 +33,9 @@ GEM
       activemodel (= 5.2.3)
       activesupport (= 5.2.3)
       arel (>= 9.0)
+    activerecord_json_validator (1.2.0)
+      activerecord (>= 4.2.0, < 6)
+      json-schema (~> 2.8)
     activestorage (5.2.3)
       actionpack (= 5.2.3)
       activerecord (= 5.2.3)
@@ -42,6 +45,8 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.6.0)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     bcrypt (3.1.13)
     bindex (0.7.0)
@@ -89,6 +94,8 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -117,6 +124,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
+    public_suffix (3.1.1)
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -239,6 +247,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord_json_validator
   bootsnap (>= 1.1.0)
   coffee-rails (~> 4.2)
   devise
