@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :permissions %>
-    <%= form.text_field :permissions %>
+    <%= form.text_area(:permissions, size: '50x15', value: json_pretty_generate(app.permissions)) %>
   </div>
 
   <div class="field">

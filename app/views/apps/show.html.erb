@@ -12,7 +12,9 @@
 
 <p>
   <strong>Permissions:</strong>
-  <%= @app.permissions %>
+<pre>
+<%= json_pretty_generate(@app.permissions) %>
+</pre>
 </p>
 
 <p>

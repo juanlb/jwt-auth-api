@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        app:
+          attributes:
+            permissions:
+              invalid_json: 'JSON Schema Invalid'
