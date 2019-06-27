@@ -24,7 +24,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe AppsController, type: :controller do
-
+  login_admin
   # This should return the minimal set of attributes required to create a valid
   # App. As you add validations to App, be sure to
   # adjust the attributes here as well.

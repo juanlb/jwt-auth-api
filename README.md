@@ -5,3 +5,7 @@ https://medium.com/@DrawandCode/how-and-why-json-schema-in-rails-always-saves-th
 # User/Pass from scratch
 
 https://www.sitepoint.com/rails-userpassword-authentication-from-scratch-part-i/
+
+# Rspec para Devise
+
+https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
