@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_143942) do
+ActiveRecord::Schema.define(version: 2019_06_27_150756) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2019_06_21_143942) do
     t.string "permissions", default: "--- {}\n"
     t.string "jwt_secret"
     t.integer "timeout"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.boolean "enabled", default: true
+    t.string "email"
+    t.string "user_key"
+    t.string "encrypted_password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

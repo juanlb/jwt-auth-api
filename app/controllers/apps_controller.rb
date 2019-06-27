@@ -69,6 +69,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :app_key, :permissions, :jwt_secret, :timeout)
+      params.require(:app).permit(:name, :permissions, :timeout)
     end
 end

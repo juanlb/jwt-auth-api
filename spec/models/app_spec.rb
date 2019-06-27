@@ -70,6 +70,11 @@ RSpec.describe App, type: :model do
         subject.name = 'otro'
         expect { subject.save }.to_not change { subject.reload.jwt_secret }
       end
+
+      it 'dont change app_key' do
+        subject.name = 'otro'
+        expect { subject.save }.to_not change { subject.reload.app_key }
+      end
     end
   end
 end
