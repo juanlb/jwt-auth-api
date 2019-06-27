@@ -1,24 +1,7 @@
-# README
+# Json Schema
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+https://medium.com/@DrawandCode/how-and-why-json-schema-in-rails-always-saves-the-day-60ecc68ab303
 
-Things you may want to cover:
+# User/Pass from scratch
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+https://www.sitepoint.com/rails-userpassword-authentication-from-scratch-part-i/
