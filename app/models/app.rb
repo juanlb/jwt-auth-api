@@ -21,6 +21,14 @@ class App < ApplicationRecord
     read_attribute(:permissions).to_json
   end
 
+  def reset_app_key
+    self.update_attribute(:app_key, "#{name.parameterize}-#{SecretMaker.generate(24)}") if name
+  end
+
+  def reset_jwt_secret
+    self.update_attribute(:jwt_secret, SecretMaker.generate)
+  end
+
   private
 
   def set_secrets

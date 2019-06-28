@@ -43,5 +43,9 @@ RSpec.describe UsersController, type: :routing do
     it 'routes to #update password via POST' do
       expect(post: '/users/1/password').to route_to('users#update_password', id: '1')
     end
+
+    it 'routes to #reset_user_key' do
+      expect(get: '/users/1/reset_user_key').to route_to('users#reset_user_key', id: '1')
+    end
   end
 end
