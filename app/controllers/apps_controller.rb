@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show, :edit, :update, :destroy]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :reset_app_key, :reset_jwt_secret]
 
   # GET /apps
   # GET /apps.json
@@ -59,6 +59,16 @@ class AppsController < ApplicationController
       format.html { redirect_to apps_url, notice: 'App was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def reset_app_key
+    @app.reset_app_key
+    redirect_to @app, notice: 'App Key was successfully updated.'
+  end
+
+  def reset_jwt_secret
+    @app.reset_jwt_secret
+    redirect_to @app, notice: 'JWT Secret was successfully updated.'
   end
 
   private

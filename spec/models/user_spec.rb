@@ -20,6 +20,16 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of(:email) }
   end
 
+  describe '#reset_user_key' do
+    context 'with previous user key' do
+      subject {create(:user)}
+
+      it 'change user key' do
+        expect{subject.reset_user_key}.to change {subject.reload.user_key}
+      end
+    end
+  end
+
   describe '#create' do
     context 'valid params' do
       subject(:user) { create(:user) }

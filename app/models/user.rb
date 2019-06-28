@@ -21,6 +21,10 @@ class User < ApplicationRecord
     not encrypted_password.nil?
   end
 
+  def reset_user_key
+    self.update_attribute(:user_key, SecretMaker.generate(24))
+  end
+
   private
 
   def set_secrets

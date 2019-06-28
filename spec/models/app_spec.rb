@@ -20,6 +20,26 @@ RSpec.describe App, type: :model do
     it { should validate_uniqueness_of(:name) }
   end
 
+  describe '#reset_app_key' do
+    context 'with previous app key' do
+      subject {create(:app)}
+
+      it 'change app key' do
+        expect{subject.reset_app_key}.to change {subject.reload.app_key}
+      end
+    end
+  end
+
+  describe '#reset_jwt_secret' do
+    context 'with previous jwt_secret' do
+      subject {create(:app)}
+
+      it 'change jwt_secret' do
+        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_secret}
+      end
+    end
+  end
+
   describe '#create' do
     let!(:name) { 'App Name' }
 

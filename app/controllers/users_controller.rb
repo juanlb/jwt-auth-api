@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :password, :update_password]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :password, :update_password, :reset_user_key]
 
   # GET /users
   # GET /users.json
@@ -74,6 +74,11 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def reset_user_key
+    @user.reset_user_key
+    redirect_to @user, notice: 'User Key was successfully updated.'
   end
 
   private
