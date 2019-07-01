@@ -1,28 +1,25 @@
-# frozen_string_literal: true
-
 class AllowedAppsController < ApplicationController
-  before_action :set_allowed_app, only: [:destroy, :show, :edit, :permissions]
-  before_action :set_user, only: [:index, :create, :destroy, :show, :edit, :permissions]
+  before_action :set_allowed_app, only: [:destroy, :show, :edit, :update]
+  before_action :set_user, only: [:index, :create, :destroy, :show, :edit, :update]
   before_action :set_available_apps, only: [:index, :create]
 
-  # GET /allowed_apps
-  # GET /allowed_apps.json
   def index
     @allowed_apps = @user.allowed_apps
     @allowed_app = AllowedApp.new
   end
 
   def create
-    @allowed_app =  AllowedApp.new(allowed_app_params)
-    @allowed_app.user = @user
-    if @allowed_app.save
+    @allowed_app =  @user.allowed_apps.build(allowed_app_params)
+    if @allowed_app.valid?
+      @allowed_app.save
       redirect_to user_allowed_apps_path(@user), notice: 'App was successfully added.'
     else
+      @allowed_app.destroy
       render :index
     end
   end
 
-  def permissions
+  def update
     if @allowed_app.update(allowed_app_params)
       redirect_to user_allowed_app_path(@user, @allowed_app), notice: 'Allowed app was successfully updated.'
     else
@@ -40,7 +37,8 @@ class AllowedAppsController < ApplicationController
   private
 
   def set_available_apps
-    @available_apps = App.where.not(id: @user.apps)
+    # @available_apps = App.where.not(id: @user.apps)
+    @available_apps = App.all
   end
 
   def set_allowed_app

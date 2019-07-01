@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   resources :users do
-    resources :allowed_apps, only: [:index, :create, :show, :edit, :destroy] do
-      member do
-        patch 'permissions'
-      end
+    resources :allowed_apps, only: [:index, :create, :show, :edit, :update, :destroy] do
     end
     member do
       get 'password'

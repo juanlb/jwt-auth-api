@@ -9,7 +9,7 @@
       <th>User key</th>
       <th>Password Setted</th>
       <th>Apps</th>
-      <th colspan="4"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -22,6 +22,7 @@
         <td><%= user.user_key %></td>
         <td><%= user.password_setted %></td>
         <td><%= user.apps.count %></td>
+        <td><%= link_to 'Apps', user_allowed_apps_path(user) %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Set Password', password_user_path(user) %></td>

@@ -1,4 +1,4 @@
-<%= form_with(model: allowed_app, url: permissions_user_allowed_app_path(@user, @allowed_app), local: true) do |form| %>
+<%= form_with(model: allowed_app, url: [@user, allowed_app], local: true) do |form| %>
   <% if allowed_app.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(allowed_app.errors.count, "error") %> prohibited this allowed_app from being saved:</h2>

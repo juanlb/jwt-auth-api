@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @user.allowed_apps.each do |allowed_app| %>
+    <% @user.allowed_apps.select(&:persisted?).each do |allowed_app| %>
       <tr>
         <td><%= allowed_app.app.name %></td>
         <td><%= allowed_app.permissions %></td>

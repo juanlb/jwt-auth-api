@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AllowedAppsController, type: :controller do
-
+  login_admin
   # This should return the minimal set of attributes required to create a valid
   # AllowedApp. As you add validations to AllowedApp, be sure to
   # adjust the attributes here as well.
@@ -24,22 +24,14 @@ RSpec.describe AllowedAppsController, type: :controller do
     it "returns a success response" do
       AllowedApp.create! valid_attributes
       get :index, params: {user_id: user.id}, session: valid_session
-      response.should render_template("index")
-
+      expect(response).to be_successful
     end
   end
 
   describe "GET #show" do
     it "returns a success response" do
       allowed_app = AllowedApp.create! valid_attributes
-      get :show, params: {id: allowed_app.to_param}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET #new" do
-    it "returns a success response" do
-      get :new, params: {}, session: valid_session
+      get :show, params: {user_id: user.id, id: allowed_app.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -47,7 +39,7 @@ RSpec.describe AllowedAppsController, type: :controller do
   describe "GET #edit" do
     it "returns a success response" do
       allowed_app = AllowedApp.create! valid_attributes
-      get :edit, params: {id: allowed_app.to_param}, session: valid_session
+      get :edit, params: {user_id: user.id, id: allowed_app.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -56,19 +48,19 @@ RSpec.describe AllowedAppsController, type: :controller do
     context "with valid params" do
       it "creates a new AllowedApp" do
         expect {
-          post :create, params: {allowed_app: valid_attributes}, session: valid_session
+          post :create, params: {user_id: user.id, allowed_app: valid_attributes}, session: valid_session
         }.to change(AllowedApp, :count).by(1)
       end
 
       it "redirects to the created allowed_app" do
-        post :create, params: {allowed_app: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(AllowedApp.last)
+        post :create, params: {user_id: user.id, allowed_app: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(user_allowed_apps_path(user))
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {allowed_app: invalid_attributes}, session: valid_session
+        post :create, params: {user_id: user.id, allowed_app: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -89,8 +81,8 @@ RSpec.describe AllowedAppsController, type: :controller do
 
       it "redirects to the allowed_app" do
         allowed_app = AllowedApp.create! valid_attributes
-        put :update, params: {id: allowed_app.to_param, allowed_app: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(allowed_app)
+        put :update, params: {user_id: user.id, id: allowed_app.to_param, allowed_app: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(user_allowed_app_path(user, allowed_app))
       end
     end
 
@@ -107,14 +99,14 @@ RSpec.describe AllowedAppsController, type: :controller do
     it "destroys the requested allowed_app" do
       allowed_app = AllowedApp.create! valid_attributes
       expect {
-        delete :destroy, params: {id: allowed_app.to_param}, session: valid_session
+        delete :destroy, params: {user_id: user.id, id: allowed_app.to_param}, session: valid_session
       }.to change(AllowedApp, :count).by(-1)
     end
 
     it "redirects to the allowed_apps list" do
       allowed_app = AllowedApp.create! valid_attributes
-      delete :destroy, params: {id: allowed_app.to_param}, session: valid_session
-      expect(response).to redirect_to(allowed_apps_url)
+      delete :destroy, params: {user_id: user.id, id: allowed_app.to_param}, session: valid_session
+      expect(response).to redirect_to(user_allowed_apps_path(user))
     end
   end
 
