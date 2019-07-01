@@ -1,0 +1,23 @@
+<%= form_with(model: allowed_app, url: [@user, allowed_app], local: true) do |form| %>
+  <% if allowed_app.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(allowed_app.errors.count, "error") %> prohibited this allowed_app from being saved:</h2>
+
+      <ul>
+      <% allowed_app.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :app_id %>
+    <%= form.select :app_id, options_from_collection_for_select(@available_apps, :id, :name) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

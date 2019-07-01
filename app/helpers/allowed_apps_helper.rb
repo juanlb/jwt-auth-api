@@ -1,0 +1,2 @@
+module AllowedAppsHelper
+end

@@ -3,6 +3,8 @@
 class User < ApplicationRecord
 
   attr_reader :password
+  has_many :allowed_apps, dependent: :destroy
+  has_many :apps, through: :allowed_apps
 
   before_validation :set_secrets, on: :create
 
