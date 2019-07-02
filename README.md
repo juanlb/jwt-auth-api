@@ -9,3 +9,10 @@ https://www.sitepoint.com/rails-userpassword-authentication-from-scratch-part-i/
 # Rspec para Devise
 
 https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails-(and-RSpec)
+
+
+# How To: Set up devise as a single user system
+
+https://github.com/plataformatec/devise/wiki/How-To:-Set-up-devise-as-a-single-user-system
+
+Mas agregado de `SessionsController` para que si no hay `admin`, pida creación.

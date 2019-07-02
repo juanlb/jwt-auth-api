@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-if Admin.count < 1
-    Admin.create(email: 'admin@admin.com', password: 'admin@admin.com')
-    puts "User Created!"
-    puts ""
-    puts "user: admin@admin.com"
-    puts "pass: admin@admin.com"
-end
+# if Admin.count < 1
+#     Admin.create(email: 'admin@admin.com', password: 'admin@admin.com')
+#     puts "User Created!"
+#     puts ""
+#     puts "user: admin@admin.com"
+#     puts "pass: admin@admin.com"
+# end
