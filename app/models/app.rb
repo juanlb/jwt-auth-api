@@ -3,6 +3,8 @@
 class App < ApplicationRecord
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/app/data.json"
 
+  has_many :users, through: :allowed_apps
+
   before_validation :set_secrets, on: :create
 
   validates :name, :app_key, :jwt_secret, uniqueness: true

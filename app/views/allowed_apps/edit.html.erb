@@ -1,0 +1,18 @@
+<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+
+<h1>Editing Allowed App</h1>
+<table class="table">
+<tr>
+  <td>
+    <%= render 'form', allowed_app: @allowed_app %>
+  </td>
+  <td>
+    <pre>
+<%= json_pretty_generate(@allowed_app.app.permissions) %>
+    </pre>
+  </td>
+</tr>
+</table>
+
+<%= link_to 'Show', user_allowed_app_path(@user, @allowed_app) %> |
+<%= link_to 'Back', user_allowed_apps_path(@user) %>

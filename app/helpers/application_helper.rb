@@ -5,7 +5,7 @@ module ApplicationHelper
     JSON.pretty_generate(JSON.parse(json))
   end
 
-  def class_active(params, controller)
-    params[:controller] == controller ? 'class="active"'.html_safe : ''
+  def class_active(*controllers)
+    controllers.include?(params[:controller])  ? 'class="active"'.html_safe : ''
   end
 end

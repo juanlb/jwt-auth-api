@@ -1,0 +1,29 @@
+<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+
+<h1>Allowed Apps</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Permissions</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.allowed_apps.select(&:persisted?).each do |allowed_app| %>
+      <tr>
+        <td><%= allowed_app.app.name %></td>
+        <td><%= allowed_app.permissions %></td>
+        <td><%= link_to 'Show', user_allowed_app_path(@user, allowed_app) %></td>
+        <td><%= link_to 'Edit', edit_user_allowed_app_path(@user, allowed_app) %></td>
+        <td><%= link_to 'Destroy', user_allowed_app_path(@user, allowed_app), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<h1>Add App</h1>
+<%= render 'new_form', allowed_app: @allowed_app %>
