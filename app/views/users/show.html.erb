@@ -25,15 +25,17 @@
 
 <p>
   <strong>Apps:</strong>
-  <%= @user.apps.count %>
-  <%= link_to 'Configure', user_allowed_apps_path(@user) %>
+  <%= @user.apps.map { |app| link_to app.name, app }.join(', ').html_safe %>
 </p>
 
-<p>
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %> |
-<%= link_to 'Set Password', password_user_path(@user) %>
-</p>
-<p>
-<%= link_to 'Reset User Key', reset_user_key_user_path(@user), data: { confirm: 'Are you sure?' } %>
-</p>
+
+<% content_for :footer do %>
+<%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
+<%= link_to 'Set Password', password_user_path(@user), class: 'btn btn-primary' %>
+<% end %>
+
+<% content_for :operations do %>
+<%= link_to 'Configure Apps', user_allowed_apps_path(@user), class: 'btn btn-primary' %>
+<%= link_to 'Reset User Key', reset_user_key_user_path(@user), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<% end %>

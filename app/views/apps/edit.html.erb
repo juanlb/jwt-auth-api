@@ -2,5 +2,6 @@
 
 <%= render 'form', app: @app %>
 
-<%= link_to 'Show', @app %> |
-<%= link_to 'Back', apps_path %>
+<% content_for :operations do %>
+  <%= link_to 'Show', @app, class: 'btn btn-primary' %>
+<% end %>

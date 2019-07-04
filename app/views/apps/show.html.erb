@@ -24,11 +24,14 @@
   <strong>Timeout:</strong>
   <%= @app.timeout %>
 </p>
-<p>
-<%= link_to 'Edit', edit_app_path(@app) %> |
-<%= link_to 'Back', apps_path %>
-</p>
-<p>
-<%= link_to 'Reset App Key', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Reset JWT Secret', reset_jwt_secret_app_path(@app), data: { confirm: 'Are you sure?' } %>
-</p>
+
+<% content_for :footer do %>
+<%= link_to 'Edit', edit_app_path(@app), class: 'btn btn-primary' %>
+<% end %>
+
+<% content_for :operations do %>
+    <%= link_to 'Reset App Key', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Reset JWT Secret', reset_jwt_secret_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+<% end %>

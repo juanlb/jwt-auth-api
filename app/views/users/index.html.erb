@@ -22,16 +22,16 @@
         <td><%= user.user_key %></td>
         <td><%= user.password_setted %></td>
         <td><%= user.apps.count %></td>
-        <td><%= link_to 'Apps', user_allowed_apps_path(user) %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Set Password', password_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Apps', user_allowed_apps_path(user), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Show', user, class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Set Password', password_user_path(user), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New User', new_user_path %>
+<% content_for :footer do %>
+<%= link_to 'New User', new_user_path, class: 'btn btn-primary' %>
+<% end %>
