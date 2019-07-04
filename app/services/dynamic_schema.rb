@@ -6,21 +6,29 @@ class DynamicSchema
   end
 
   def call
-    permissions_schema = @permissions_array.map { |p| PermissionSchema.new(p).generate }.inject(:merge)
-    add_restrictions(permissions_schema)
+    structure = schema_structure
+    structure[:properties].merge!(permissions_schema)
+    structure[:required] = required_properties
+    structure
   end
 
   private
 
-  def add_restrictions(permissions_schema)
-    schema_restrictions =
-      { type: 'object',
-        additionalProperties: false,
-        properties: {
-          malformed_json: { not: {} }
-        } }
+  def permissions_schema
+    @permissions_array.map { |p| PermissionSchema.new(p).generate }.inject(:merge)
+  end
 
-    schema_restrictions[:properties].merge!(permissions_schema)
-    schema_restrictions
+  def schema_structure
+    {
+      type: 'object',
+      additionalProperties: false,
+      properties: {
+        malformed_json: { not: {} }
+      }
+    }
+  end
+
+  def required_properties
+    @permissions_array.map(&:first)
   end
 end

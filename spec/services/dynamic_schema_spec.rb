@@ -18,7 +18,7 @@ RSpec.describe DynamicSchema do
       let(:permission_json) { '{"active": ["true", "false"], "quantity": "integer", "code": "string"}' }
       subject { DynamicSchema.new(permission_json).call }
       it 'return a valid JSON schema' do
-        expect(subject).to eq(additionalProperties: false, properties: { active: { enum: %w[true false], type: 'string' }, code: { type: 'string' }, malformed_json: { not: {} }, quantity: { type: 'integer' } }, type: 'object')
+        expect(subject).to eq(required: %w[active quantity code], additionalProperties: false, properties: { active: { enum: %w[true false], type: 'string' }, code: { type: 'string' }, malformed_json: { not: {} }, quantity: { type: 'integer' } }, type: 'object')
       end
     end
   end
