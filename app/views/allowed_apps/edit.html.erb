@@ -14,5 +14,6 @@
 </tr>
 </table>
 
-<%= link_to 'Show', user_allowed_app_path(@user, @allowed_app) %> |
-<%= link_to 'Back', user_allowed_apps_path(@user) %>
+<% content_for :operations do %>
+<%= link_to 'Show', user_allowed_app_path(@user, @allowed_app), class: 'btn btn-primary' %>
+<% end %>

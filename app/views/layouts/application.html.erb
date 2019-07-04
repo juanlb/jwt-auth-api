@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>JWT Auth</title>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-  </head>
-  <body>
-    <%= render "layouts/header" %>
-    <div class="container">
-      <%= render "shared/flash_messages" %>
-      <%= yield %>
-    </div>
-  </body>
-</html>
+  <%= render "layouts/pre_yield" %>
+          <div class="col-sm-8">
+            <%= yield %>
+          </div>
+          <div class="col-sm-4">
+            <%= yield :operations %>
+          </div>
+  <%= render "layouts/post_yield" %>

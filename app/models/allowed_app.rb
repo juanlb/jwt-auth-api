@@ -10,7 +10,7 @@ class AllowedApp < ApplicationRecord
 
   validates :user_id, :app_id, presence: true
   validates :user_id, uniqueness: { scope: :app_id, message: 'only can be associated with an app once.' }
-  validates :permissions, json: { schema: :dynamic_app_schema }
+  validates :permissions, json: { schema: :dynamic_app_schema }, on: :update
 
   serialize :permissions, Hash
 

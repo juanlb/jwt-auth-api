@@ -12,7 +12,7 @@ RSpec.describe AllowedAppsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {user_id: user.id, app_id: app.id, permissions: '{"invalida": "parameters"}'}
+    {user_id: user.id, app_id: app.id, permissions: '{"invalid": "parameters"}'}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -58,10 +58,10 @@ RSpec.describe AllowedAppsController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
+    context "with invalid permission param" do
+      it "returns a success response, no check JSON Schema at create" do
         post :create, params: {user_id: user.id, allowed_app: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to redirect_to(user_allowed_apps_path(user))
       end
     end
   end

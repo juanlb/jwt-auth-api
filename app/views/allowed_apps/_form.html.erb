@@ -1,7 +1,7 @@
 <%= form_with(model: allowed_app, url: [@user, allowed_app], local: true) do |form| %>
   <% if allowed_app.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(allowed_app.errors.count, "error") %> prohibited this allowed_app from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4><%= pluralize(allowed_app.errors.count, "error") %> prohibited this allowed_app from being saved:</h4>
 
       <ul>
       <% allowed_app.errors.full_messages.each do |message| %>
@@ -17,6 +17,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

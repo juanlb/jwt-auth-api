@@ -24,5 +24,14 @@ RSpec.describe AllowedApp, type: :model do
       expect{ duplicated_allowed_app }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+  describe '.create' do
+    context 'with invalid permissions' do
+      subject { create(:allowed_app, permissions: '{"invalid": "parameters"}')}
+      it 'is created, no schema validation on create' do
+        expect{subject}.to change(AllowedApp, :count).by(1)
+      end
+    end
+  end
   
 end

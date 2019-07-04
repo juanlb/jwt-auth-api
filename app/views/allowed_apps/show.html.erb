@@ -16,5 +16,7 @@
 </tr>
 </table>
 
-<%= link_to 'Edit', edit_user_allowed_app_path(@user, @allowed_app) %> |
-<%= link_to 'Back', user_allowed_apps_path(@user) %>
+
+<% content_for :footer do %>
+<%= link_to 'Edit', edit_user_allowed_app_path(@user, @allowed_app), class: 'btn btn-primary' %>
+<% end %>
