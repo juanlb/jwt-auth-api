@@ -37,8 +37,7 @@ class AllowedAppsController < ApplicationController
   private
 
   def set_available_apps
-    # @available_apps = App.where.not(id: @user.apps)
-    @available_apps = App.all
+    @available_apps = App.where.not(id: @user.apps)
   end
 
   def set_allowed_app

@@ -57,7 +57,7 @@ RSpec.describe App, type: :model do
       end
 
       it 'permissions be an Hash' do
-        expect(subject.permissions).to eq({ attr1: %w[value1 value2] }.to_json)
+        expect(subject.permissions).to eq({ active: %w[true false], quantity: 'integer', code: 'string' }.to_json)
       end
     end
 

@@ -8,11 +8,11 @@ RSpec.describe AllowedAppsController, type: :controller do
   let(:user) {FactoryBot.create(:user)}
   let(:app)  {FactoryBot.create(:app)}
   let(:valid_attributes) {
-    {user_id: user.id, app_id: app.id, permissions: {}}
+    {user_id: user.id, app_id: app.id, permissions: '{"active": "true", "quantity": 1, "code": "1234"}'}
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {user_id: user.id, app_id: app.id, permissions: '{"invalida": "parameters"}'}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -69,14 +69,14 @@ RSpec.describe AllowedAppsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {user_id: user.id, app_id: app.id, permissions: '{"active": "false", "quantity": 2, "code": "abcd"}'}
       }
 
       it "updates the requested allowed_app" do
         allowed_app = AllowedApp.create! valid_attributes
-        put :update, params: {id: allowed_app.to_param, allowed_app: new_attributes}, session: valid_session
+        put :update, params: {user_id: user.id, id: allowed_app.to_param, allowed_app: new_attributes}, session: valid_session
         allowed_app.reload
-        skip("Add assertions for updated state")
+        expect(allowed_app.permissions).to eq('{"active":"false","quantity":2,"code":"abcd"}')
       end
 
       it "redirects to the allowed_app" do
@@ -89,7 +89,7 @@ RSpec.describe AllowedAppsController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         allowed_app = AllowedApp.create! valid_attributes
-        put :update, params: {id: allowed_app.to_param, allowed_app: invalid_attributes}, session: valid_session
+        put :update, params: {user_id: user.id, id: allowed_app.to_param, allowed_app: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
