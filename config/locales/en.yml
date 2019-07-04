@@ -38,3 +38,7 @@ en:
           attributes:
             permissions:
               invalid_json: 'JSON Schema Invalid'
+        allowed_app:
+          attributes:
+            permissions:
+              invalid_json: 'JSON Schema Invalid'

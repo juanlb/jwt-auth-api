@@ -1,6 +1,7 @@
 # Json Schema
 
 https://medium.com/@DrawandCode/how-and-why-json-schema-in-rails-always-saves-the-day-60ecc68ab303
+https://json-schema.org/understanding-json-schema/index.html
 
 # User/Pass from scratch
 

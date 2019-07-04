@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class App < ApplicationRecord
+  include ::JsonConcern
+
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/app/data.json"
 
   has_many :users, through: :allowed_apps
@@ -16,7 +18,7 @@ class App < ApplicationRecord
   def permissions=(value)
     write_attribute(:permissions, JSON.parse(value))
   rescue StandardError
-    write_attribute(:permissions, JSON.parse('{"invalid": "json"}'))
+    write_attribute(:permissions, JSON.parse('{"malformed_json": "true", "value": "' + clean_malformed_json(value) + '"}'))
   end
 
   def permissions
