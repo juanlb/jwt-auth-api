@@ -20,6 +20,11 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of(:email) }
   end
 
+  describe 'associations' do
+    it { should have_many(:allowed_apps) }
+    it { should have_many(:apps).through(:allowed_apps) }
+  end
+
   describe '#reset_user_key' do
     context 'with previous user key' do
       subject {create(:user)}

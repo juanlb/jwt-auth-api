@@ -1,29 +1,56 @@
-<p>
-  <strong>Name:</strong>
-  <%= @app.name %>
-</p>
-
-<p>
-  <strong>App key:</strong>
-  <%= @app.app_key %>
-</p>
-
-<p>
-  <strong>Permissions:</strong>
+<table class="table">
+  <tr>
+    <td>
+     <strong>Name:</strong>
+    </td>
+    <td>
+     <%= @app.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>App key:</strong>
+    </td>
+    <td>
+     <%= @app.app_key %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Permissions:</strong>
+    </td>
+    <td>
 <pre>
 <%= json_pretty_generate(@app.permissions) %>
 </pre>
-</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Jwt secret:</strong>
+    </td>
+    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">
+      <%= @app.jwt_secret %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Timeout:</strong>
+    </td>
+    <td>
+      <%= @app.timeout %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Users:</strong>
+    </td>
+    <td>
+     <%= @app.allowed_apps.map { |allowed_app| link_to allowed_app.user.name, user_allowed_app_path(allowed_app.user, allowed_app) }.join(', ').html_safe %>
+    </td>
+  </tr>
+</table>
 
-<p>
-  <strong>Jwt secret:</strong>
-  <%= @app.jwt_secret %>
-</p>
-
-<p>
-  <strong>Timeout:</strong>
-  <%= @app.timeout %>
-</p>
 
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_app_path(@app), class: 'btn btn-primary' %>

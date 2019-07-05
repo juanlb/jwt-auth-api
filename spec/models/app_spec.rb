@@ -15,6 +15,11 @@ RSpec.describe App, type: :model do
     it { should validate_presence_of(:app_key) }
   end
 
+  describe 'associations' do
+    it { should have_many(:allowed_apps) }
+    it { should have_many(:users).through(:allowed_apps) }
+  end
+
   describe 'Uniqueness validations' do
     subject { build(:app) }
     it { should validate_uniqueness_of(:name) }

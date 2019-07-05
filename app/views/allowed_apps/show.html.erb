@@ -3,15 +3,14 @@
 <table class="table">
 <tr>
   <td>
-<p>
   <strong>Permissions:</strong>
-  <%= @allowed_app.permissions %>
-</p>
+<pre>
+<%= json_pretty_generate(@allowed_app.permissions) %>
+
+</pre>
   </td>
   <td>
-    <pre>
-<%= json_pretty_generate(@allowed_app.app.permissions) %>
-    </pre>
+<%= render 'apps/show_schema', app: @allowed_app.app %>
   </td>
 </tr>
 </table>

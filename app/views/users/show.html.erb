@@ -1,33 +1,53 @@
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Enabled:</strong>
-  <%= @user.enabled %>
-</p>
-
-<p>
-  <strong>User key:</strong>
-  <%= @user.user_key %>
-</p>
-
-<p>
-  <strong>Password Setted:</strong>
-  <%= @user.password_setted %>
-</p>
-
-<p>
-  <strong>Apps:</strong>
-  <%= @user.allowed_apps.map { |allowed_app| link_to allowed_app.app.name, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
-</p>
-
+<table class="table">
+  <tr>
+    <td>
+      <strong>Name:</strong>
+    </td>
+    <td>
+      <%= @user.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Email:</strong>
+    </td>
+    <td>
+      <%= @user.email %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Enabled:</strong>
+    </td>
+    <td>
+     <%= @user.enabled %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>User key:</strong>
+    </td>
+    <td>
+      <%= @user.user_key %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+     <strong>Password Setted:</strong>
+    </td>
+    <td>
+      <%= @user.password_setted %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Apps:</strong>
+    </td>
+    <td>
+      <%= @user.allowed_apps.map { |allowed_app| link_to allowed_app.app.name, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
+    </td>
+  </tr>
+</table>
 
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>

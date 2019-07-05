@@ -7,9 +7,7 @@
     <%= render 'form', allowed_app: @allowed_app %>
   </td>
   <td>
-    <pre>
-<%= json_pretty_generate(@allowed_app.app.permissions) %>
-    </pre>
+<%= render 'apps/show_schema', app: @allowed_app.app %>
   </td>
 </tr>
 </table>
