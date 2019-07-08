@@ -4,9 +4,9 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>App key</th>
       <th>Permissions</th>
       <th>Timeout</th>
+      <th>Users</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +15,13 @@
     <% @apps.each do |app| %>
       <tr>
         <td><%= app.name %></td>
-        <td><%= app.app_key %></td>
-        <td><%= app.permissions %></td>
+        <td>
+<pre>
+<small><%= json_pretty_generate(app.permissions) %></small>
+</pre>
+        </td>
         <td><%= app.timeout %></td>
+        <td><%= permissions_state(app.permissions_state) %></td>
         <td><%= link_to 'Show', app, class: 'btn btn-primary' %></td>
         <td><%= link_to 'Edit', edit_app_path(app), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

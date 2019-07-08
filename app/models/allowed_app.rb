@@ -24,6 +24,10 @@ class AllowedApp < ApplicationRecord
     read_attribute(:permissions).to_json
   end
 
+  def permissions_valid?
+    not ((not valid?) and errors.messages[:permissions] and errors.messages[:permissions].include? 'JSON Schema Invalid')
+  end
+
   private
 
   def dynamic_app_schema

@@ -102,4 +102,8 @@ RSpec.describe App, type: :model do
       end
     end
   end
+
+  context '#permissions_state' do
+    skip('permissions_state, check module')
+  end
 end

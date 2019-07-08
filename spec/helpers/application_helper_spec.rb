@@ -17,4 +17,16 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.class_active(controller_name)).to eq('class="active"')
     end
   end
+
+  describe '#permission_state' do
+    skip('permission_state')
+  end
+
+  describe '#permission_states' do
+    skip('permission_states')
+  end
+
+  describe '#enabled_icon' do
+    skip('enabled_icon')
+  end
 end

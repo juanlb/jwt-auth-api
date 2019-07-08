@@ -2,6 +2,7 @@
 
 class App < ApplicationRecord
   include ::JsonConcern
+  include ::PermissionsConcern
 
   JSON_SCHEMA = "#{Rails.root}/app/models/schemas/app/data.json"
 

@@ -7,7 +7,7 @@ class DynamicSchema
 
   def call
     structure = schema_structure
-    structure[:properties].merge!(permissions_schema)
+    structure[:properties].merge!(permissions_schema) if permissions_schema
     structure[:required] = required_properties
     structure
   end

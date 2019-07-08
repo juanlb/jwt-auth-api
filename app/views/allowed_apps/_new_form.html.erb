@@ -10,12 +10,14 @@
       </ul>
     </div>
   <% end %>
-
-
-  <div class="field">
-    <%= form.label :app_id %>
-    <%= form.select :app_id, options_from_collection_for_select(@available_apps, :id, :name) %>
-  </div>
+<div class="row">
+   <div class="col-sm-2">
+      <%= form.label :app_id %>
+   </div>
+   <div class="col-sm-2">
+      <%= form.select(:app_id, options_from_collection_for_select(@available_apps, :id, :name), {},{class: "form-control"}) %>
+   </div>
+</div>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

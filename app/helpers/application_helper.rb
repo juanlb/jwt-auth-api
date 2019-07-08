@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+
   def json_pretty_generate(json)
     JSON.pretty_generate(JSON.parse(json))
   end
@@ -23,5 +24,44 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
+
+  def enabled_icon(enabled)
+    if enabled
+      icon('far', 'check-square')
+    else
+      icon('far', 'square')
+    end
+  end
+
+  def permission_state(allowed_app)
+    if allowed_app.permissions_valid?
+      valid_icon
+    else
+      invalid_icon
+    end
+  end
+
+  def permissions_state(permissions_state_hash)
+    permissions_state_hash.select {|k,v| v > 0}.map{|k,v| "#{v} #{icons[k]}"}.join(' - ').html_safe
+  end
+
+  private
+
+  def valid_icon
+    icons[:valid]
+  end
+
+  def invalid_icon
+    icons[:invalid]
+  end
+
+  def icons
+    {
+      valid: (icon('fas', 'check', class: 'fa-green')),
+      invalid: (icon('fas', 'times', class: 'fa-red'))
+    }
+  end
+  
+  
 
 end

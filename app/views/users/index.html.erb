@@ -4,9 +4,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Enabled</th>
       <th>Email</th>
-      <th>User key</th>
+      <th>Enabled</th>
       <th>Password Setted</th>
       <th>Apps</th>
       <th colspan="5"></th>
@@ -17,11 +16,10 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.enabled %></td>
         <td><%= user.email %></td>
-        <td><%= user.user_key %></td>
+        <td><%= enabled_icon(user.enabled) %></td>
         <td><%= user.password_setted %></td>
-        <td><%= user.apps.count %></td>
+        <td><%= permissions_state(user.permissions_state) %></td>
         <td><%= link_to 'Apps', user_allowed_apps_path(user), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Show', user, class: 'btn btn-primary' %></td>
         <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary' %></td>

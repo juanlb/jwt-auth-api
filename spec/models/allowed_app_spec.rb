@@ -15,23 +15,33 @@ RSpec.describe AllowedApp, type: :model do
   end
 
   describe 'Uniqueness validations with app' do
-    let(:app_new) {create(:app)}
-    let(:user_new) {create(:user)}
-    let!(:allowed_app) { create(:allowed_app, app: app_new, user: user_new)}
-    let(:duplicated_allowed_app) { create(:allowed_app, app: app_new, user: user_new)}
+    let(:app_new) { create(:app) }
+    let(:user_new) { create(:user) }
+    let!(:allowed_app) { create(:allowed_app, app: app_new, user: user_new) }
+    let(:duplicated_allowed_app) { create(:allowed_app, app: app_new, user: user_new) }
 
     it 'cant create a duplicate' do
-      expect{ duplicated_allowed_app }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { duplicated_allowed_app }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
   describe '.create' do
     context 'with invalid permissions' do
-      subject { create(:allowed_app, permissions: '{"invalid": "parameters"}')}
+      subject { create(:allowed_app, permissions: '{"invalid": "parameters"}') }
       it 'is created, no schema validation on create' do
-        expect{subject}.to change(AllowedApp, :count).by(1)
+        expect { subject }.to change(AllowedApp, :count).by(1)
+      end
+    end
+
+    context 'with app with nil permissions' do
+      let(:app) { create(:app, permissions: '{}') }
+      subject { create(:allowed_app, app: app, permissions: nil) }
+      it 'is created, no schema validation on create' do
+        expect { subject }.to change(AllowedApp, :count).by(1)
       end
     end
   end
-  
+  describe '#permissions_valid?' do
+    skip('permissions_valid?')
+  end
 end

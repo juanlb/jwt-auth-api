@@ -7,6 +7,7 @@
     <tr>
       <th>App</th>
       <th>Permissions</th>
+      <th>Valid Permissions</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= allowed_app.app.name %></td>
         <td><%= allowed_app.permissions %></td>
+        <td><%= permission_state(allowed_app) %><%=  %></td>
         <td><%= link_to 'Show', user_allowed_app_path(@user, allowed_app), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Edit', edit_user_allowed_app_path(@user, allowed_app), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Destroy', user_allowed_app_path(@user, allowed_app), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>

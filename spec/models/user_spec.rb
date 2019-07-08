@@ -97,5 +97,9 @@ RSpec.describe User, type: :model do
         expect(subject.password_setted).to be true
       end
     end
+
+    context '#permissions_state' do
+      skip('permissions_state, check module')
+    end
   end
 end

@@ -13,3 +13,13 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "font-awesome-sprockets";
+ @import "font-awesome";
+
+ i.fa-red {
+     color: red;
+ }
+
+ i.fa-green {
+    color: green;
+}

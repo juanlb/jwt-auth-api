@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include ::PermissionsConcern
 
   attr_reader :password
   has_many :allowed_apps, dependent: :destroy

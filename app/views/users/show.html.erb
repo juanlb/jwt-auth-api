@@ -20,7 +20,7 @@
      <strong>Enabled:</strong>
     </td>
     <td>
-     <%= @user.enabled %>
+     <%= enabled_icon(@user.enabled) %>
     </td>
   </tr>
   <tr>
@@ -44,7 +44,7 @@
       <strong>Apps:</strong>
     </td>
     <td>
-      <%= @user.allowed_apps.map { |allowed_app| link_to allowed_app.app.name, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
+      <%= @user.allowed_apps.map { |allowed_app| link_to "#{allowed_app.app.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
     </td>
   </tr>
 </table>

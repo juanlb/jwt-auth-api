@@ -46,7 +46,7 @@
      <strong>Users:</strong>
     </td>
     <td>
-     <%= @app.allowed_apps.map { |allowed_app| link_to allowed_app.user.name, user_allowed_app_path(allowed_app.user, allowed_app) }.join(', ').html_safe %>
+     <%= @app.allowed_apps.map { |allowed_app| link_to "#{allowed_app.user.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(allowed_app.user, allowed_app) }.join(', ').html_safe %>
     </td>
   </tr>
 </table>
