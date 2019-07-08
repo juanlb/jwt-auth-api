@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def class_active(*controllers)
-    controllers.include?(params[:controller]) ? 'class="active"'.html_safe : ''
+    controllers.include?(params[:controller]) ? 'active'.html_safe : ''
   end
 
   def bootstrap_class_for(flash_type)

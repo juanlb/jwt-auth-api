@@ -11,10 +11,10 @@
  * It is generally better to create a new file per style scope.
  *
  */
- @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "font-awesome-sprockets";
  @import "font-awesome";
+ @import "dashboard";
 
  i.fa-red {
      color: red;

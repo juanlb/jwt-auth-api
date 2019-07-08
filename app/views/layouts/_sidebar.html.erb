@@ -1,0 +1,18 @@
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item" >
+            <%= link_to apps_path, class: [:'nav-link', class_active('apps')] do %>
+            <%= icon('fas', 'box') %> 
+            Apps
+            <% end %>
+          </li>
+          <li class="nav-item" >
+            <%= link_to users_path, class: [:'nav-link', class_active('users', 'allowed_apps')] do %>
+            <%= icon('fas', 'users') %> 
+            Users
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </nav>
