@@ -16,6 +16,8 @@ class PermissionSchema
       generate_string
     when 'integer'
       generate_integer
+    when 'boolean'
+      generate_boolean
     else
       raise 'Invalid schema type'
     end
@@ -33,6 +35,10 @@ class PermissionSchema
   
   def generate_string
     schema_hash(key, 'string')
+  end
+  
+  def generate_boolean
+    schema_hash(key, 'boolean')
   end
   
   def schema_hash(key, type, extra_properties = nil)

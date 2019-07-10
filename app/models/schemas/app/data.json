@@ -13,6 +13,6 @@
         "items": {
             "type": "string"
         },
-        "pattern": "^string|integer$"
+    "pattern": "^string|integer|boolean$"
     }
 }

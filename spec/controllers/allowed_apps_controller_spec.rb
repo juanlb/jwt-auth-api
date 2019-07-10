@@ -8,7 +8,7 @@ RSpec.describe AllowedAppsController, type: :controller do
   let(:user) {FactoryBot.create(:user)}
   let(:app)  {FactoryBot.create(:app)}
   let(:valid_attributes) {
-    {user_id: user.id, app_id: app.id, permissions: '{"active": "true", "quantity": 1, "code": "1234"}'}
+    {user_id: user.id, app_id: app.id, permissions: '{"role": "admin", "enabled": true, "quantity": 1, "code": "1234"}'}
   }
 
   let(:invalid_attributes) {
@@ -69,14 +69,14 @@ RSpec.describe AllowedAppsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {user_id: user.id, app_id: app.id, permissions: '{"active": "false", "quantity": 2, "code": "abcd"}'}
+        {user_id: user.id, app_id: app.id, permissions: '{"role": "user", "quantity": 2, "code": "abcd", "enabled": false}'}
       }
 
       it "updates the requested allowed_app" do
         allowed_app = AllowedApp.create! valid_attributes
         put :update, params: {user_id: user.id, id: allowed_app.to_param, allowed_app: new_attributes}, session: valid_session
         allowed_app.reload
-        expect(allowed_app.permissions).to eq('{"active":"false","quantity":2,"code":"abcd"}')
+        expect(allowed_app.permissions).to eq('{"role":"user","quantity":2,"code":"abcd","enabled":false}')
       end
 
       it "redirects to the allowed_app" do

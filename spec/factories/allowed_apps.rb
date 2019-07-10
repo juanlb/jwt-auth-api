@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :allowed_app do
     association :user
     association :app
-    permissions { '{"active": "true", "quantity": 1, "code": "abcd"}' }
+    permissions { '{"role": "admin", "quantity": 1, "code": "abcd", "enabled": true}' }
   end
 end
