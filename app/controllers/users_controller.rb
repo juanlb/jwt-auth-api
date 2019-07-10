@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :password, :update_password, :reset_user_key]
-  layout 'fullpage', only: [:index]
+  before_action :set_fullpage, only: [:index]
 
 
   # GET /users

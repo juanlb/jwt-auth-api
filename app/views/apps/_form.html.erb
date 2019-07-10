@@ -10,32 +10,19 @@
       </ul>
     </div>
   <% end %>
-<table class="table">
-  <tr>
-    <td>
-      <%= form.label :name %>
-    </td>
-    <td>
-      <%= form.text_field :name %>
-    </td>
-  </tr>
-  <tr>
-    <td>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
     <%= form.label :permissions %>
-    </td>
-    <td>
-    <%= form.text_area(:permissions, size: '50x15', value: json_pretty_generate(app.permissions)) %>
-    </td>
-  </tr>
-  <tr>
-    <td>
+    <%= form.text_area(:permissions, size: '50x8', value: json_pretty_generate(app.permissions), class: 'form-control') %>
+  </div>
+  <div class="form-group">
     <%= form.label :timeout %>
-    </td>
-    <td>
-    <%= form.number_field :timeout %>
-    </td>
-  </tr>
-</table>
+    <%= form.number_field :timeout, class: 'form-control' %>
+  </div>
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

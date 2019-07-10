@@ -1,6 +1,6 @@
 class AppsController < ApplicationController
   before_action :set_app, only: [:show, :edit, :update, :destroy, :reset_app_key, :reset_jwt_secret]
-  layout 'fullpage', only: [:index]
+  before_action :set_fullpage, only: [:index]
   
   # GET /apps
   # GET /apps.json
