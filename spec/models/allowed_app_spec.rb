@@ -41,7 +41,19 @@ RSpec.describe AllowedApp, type: :model do
       end
     end
   end
+
   describe '#permissions_valid?' do
-    skip('permissions_valid?')
+    context 'with valid permissions' do
+      let(:allowed_app) {create(:allowed_app)}
+      it 'returns true' do
+        expect(allowed_app.permissions_valid?).to be true
+      end
+    end
+    context 'with valid permissions' do
+      let(:allowed_app) {create(:allowed_app, permissions: '{}')}
+      it 'returns true' do
+        expect(allowed_app.permissions_valid?).to be false
+      end
+    end
   end
 end

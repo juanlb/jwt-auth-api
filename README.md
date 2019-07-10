@@ -17,3 +17,7 @@ https://github.com/plataformatec/devise/wiki/How-To:-Test-controllers-with-Rails
 https://github.com/plataformatec/devise/wiki/How-To:-Set-up-devise-as-a-single-user-system
 
 Mas agregado de `SessionsController` para que si no hay `admin`, pida creación.
+
+# Table clicable
+
+https://codepen.io/NaokiIshimura/pen/aEvQPY

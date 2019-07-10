@@ -15,11 +15,4 @@
  @import "font-awesome-sprockets";
  @import "font-awesome";
  @import "dashboard";
-
- i.fa-red {
-     color: red;
- }
-
- i.fa-green {
-    color: green;
-}
+ @import "custom_auth_jwt";
