@@ -103,7 +103,37 @@ RSpec.describe App, type: :model do
     end
   end
 
-  context '#permissions_state' do
-    skip('permissions_state, check module')
+  describe '#permissions_state' do
+    context 'app with no relation' do
+      let(:app) { create(:app) }
+      it 'app returns valid 0 and invalid 0' do
+        expect(app.permissions_state).to eq(invalid: 0, valid: 0)
+      end
+    end
+
+    context 'app with 1 good relation' do
+      let(:allowed_app) { create(:allowed_app) }
+      it 'app returns valid 1 and invalid 0' do
+        expect(allowed_app.app.permissions_state).to eq(invalid: 0, valid: 1)
+      end
+    end
+
+    context 'app with 1 bad relation' do
+      let(:allowed_app) { create(:allowed_app, permissions: '{}') }
+      it 'app returns valid 0 and invalid 1' do
+        expect(allowed_app.app.permissions_state).to eq(invalid: 1, valid: 0)
+      end
+    end
+
+    context 'app with 1 good and 1 bad relation' do
+      let!(:app) {create(:app)}
+      let!(:user_1) {create(:user)}
+      let!(:user_2) {create(:user)}
+      let!(:allowed_app_1) {create(:allowed_app, user:user_1, app: app)}
+      let!(:allowed_app_2) {create(:allowed_app, user:user_2, app: app, permissions: '{}')}
+      it 'app returns valid 0 and invalid 1' do
+        expect(app.permissions_state).to eq(invalid: 1, valid: 1)
+      end
+    end
   end
 end

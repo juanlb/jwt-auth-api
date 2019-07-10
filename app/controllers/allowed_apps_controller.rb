@@ -3,7 +3,7 @@ class AllowedAppsController < ApplicationController
   before_action :set_user, only: [:index, :create, :destroy, :show, :edit, :update]
   before_action :set_available_apps, only: [:index, :create]
 
-  layout 'fullpage', only: [:index]
+  before_action :set_fullpage, only: [:index]
 
   def index
     @allowed_apps = @user.allowed_apps

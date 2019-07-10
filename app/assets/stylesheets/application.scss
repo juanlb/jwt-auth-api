@@ -11,15 +11,8 @@
  * It is generally better to create a new file per style scope.
  *
  */
- @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "font-awesome-sprockets";
  @import "font-awesome";
-
- i.fa-red {
-     color: red;
- }
-
- i.fa-green {
-    color: green;
-}
+ @import "dashboard";
+ @import "custom_auth_jwt";

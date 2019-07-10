@@ -10,10 +10,19 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.label :permissions %>
-    <%= form.text_area(:permissions, size: '50x10', value: json_pretty_generate(allowed_app.permissions)) %>
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="field">
+        <%= form.label :permissions %>
+        <%= form.text_area(:permissions, size: '50x10', value: json_pretty_generate(allowed_app.permissions)) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <%= render 'apps/show_schema', app: @allowed_app.app %>
+    </div>
   </div>
+
 
   <div class="actions">
     <%= form.submit class: 'btn btn-primary' %>

@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def class_active(*controllers)
-    controllers.include?(params[:controller]) ? 'class="active"'.html_safe : ''
+    controllers.include?(params[:controller]) ? 'active'.html_safe : ''
   end
 
   def bootstrap_class_for(flash_type)
@@ -41,8 +41,9 @@ module ApplicationHelper
     end
   end
 
-  def permissions_state(permissions_state_hash)
-    permissions_state_hash.select {|k,v| v > 0}.map{|k,v| "#{v} #{icons[k]}"}.join(' - ').html_safe
+  def show_permissions_state(permissions_state_hash)
+    perm = permissions_state_hash.select {|k,v| v > 0}.map{|k,v| "#{v} #{icons[k]}"}
+    perm.empty? ? '0' : perm.join(' - ').html_safe
   end
 
   private

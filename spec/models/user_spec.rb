@@ -27,10 +27,10 @@ RSpec.describe User, type: :model do
 
   describe '#reset_user_key' do
     context 'with previous user key' do
-      subject {create(:user)}
+      subject { create(:user) }
 
       it 'change user key' do
-        expect{subject.reset_user_key}.to change {subject.reload.user_key}
+        expect { subject.reset_user_key }.to change { subject.reload.user_key }
       end
     end
   end
@@ -97,9 +97,39 @@ RSpec.describe User, type: :model do
         expect(subject.password_setted).to be true
       end
     end
+  end
 
-    context '#permissions_state' do
-      skip('permissions_state, check module')
+  describe '#permissions_state' do
+    context 'user with no relation' do
+      let(:user) { create(:user) }
+      it 'user returns valid 0 and invalid 0' do
+        expect(user.permissions_state).to eq(invalid: 0, valid: 0)
+      end
+    end
+
+    context 'user with 1 good relation' do
+      let(:allowed_app) { create(:allowed_app) }
+      it 'user returns valid 1 and invalid 0' do
+        expect(allowed_app.user.permissions_state).to eq(invalid: 0, valid: 1)
+      end
+    end
+
+    context 'user with 1 bad relation' do
+      let(:allowed_app) { create(:allowed_app, permissions: '{}') }
+      it 'user returns valid 0 and invalid 1' do
+        expect(allowed_app.user.permissions_state).to eq(invalid: 1, valid: 0)
+      end
+    end
+
+    context 'user with 1 good and 1 bad relation' do
+      let!(:user) {create(:user)}
+      let!(:app_1) {create(:app)}
+      let!(:app_2) {create(:app)}
+      let!(:allowed_app_1) {create(:allowed_app, user:user, app: app_1)}
+      let!(:allowed_app_2) {create(:allowed_app, user:user, app: app_2, permissions: '{}')}
+      it 'user returns valid 0 and invalid 1' do
+        expect(user.permissions_state).to eq(invalid: 1, valid: 1)
+      end
     end
   end
 end

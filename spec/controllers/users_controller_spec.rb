@@ -164,12 +164,12 @@ RSpec.describe UsersController, type: :controller do
 
       it 'updates the encrypted_password' do
         expect do
-          post :update_password, params: { id: user.to_param, password: '12345678' }, session: valid_session
+          post :update_password, params: { id: user.to_param, password: '123456' }, session: valid_session
         end.to change { user.reload.encrypted_password }
       end
 
       it 'redirects to the created user' do
-        post :update_password, params: { id: user.to_param, password: '12345678' }, session: valid_session
+        post :update_password, params: { id: user.to_param, password: '123456' }, session: valid_session
         expect(response).to redirect_to(User.last)
       end
     end
@@ -177,7 +177,7 @@ RSpec.describe UsersController, type: :controller do
     context 'with invalid password' do
       it 'dont update encrypted_password' do
         expect do
-          post :update_password, params: { id: user.to_param, password: '1234567' }, session: valid_session
+          post :update_password, params: { id: user.to_param, password: '12345' }, session: valid_session
         end.not_to change { user.reload.encrypted_password }
       end
     end

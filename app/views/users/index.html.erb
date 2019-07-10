@@ -1,6 +1,6 @@
 <h1>Users</h1>
 
-<table class="table">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -8,22 +8,30 @@
       <th>Enabled</th>
       <th>Password Setted</th>
       <th>Apps</th>
-      <th colspan="5"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td><%= enabled_icon(user.enabled) %></td>
-        <td><%= user.password_setted %></td>
-        <td><%= permissions_state(user.permissions_state) %></td>
+        <td class="table-cell" data-href="<%= user_path(user) %>">
+          <%= user.name %>
+        </td>
+        <td class="table-cell" data-href="<%= user_path(user) %>">
+          <%= user.email %>
+        </td>
+        <td class="table-cell" data-href="<%= user_path(user) %>">
+          <%= enabled_icon(user.enabled) %>
+        </td>
+        <td class="table-cell" data-href="<%= user_path(user) %>">
+          <%= user.password_setted %>
+        </td>
+        <td class="table-cell" data-href="<%= user_path(user) %>">
+          <%= show_permissions_state(user.permissions_state) %>
+        </td>
         <td><%= link_to 'Apps', user_allowed_apps_path(user), class: 'btn btn-primary' %></td>
-        <td><%= link_to 'Show', user, class: 'btn btn-primary' %></td>
         <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary' %></td>
-        <td><%= link_to 'Set Password', password_user_path(user), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>

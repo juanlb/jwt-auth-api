@@ -1,55 +1,44 @@
-<table class="table">
-  <tr>
-    <td>
-     <strong>Name:</strong>
-    </td>
-    <td>
+<dl class="row">
+  <dt class="col-sm-3">
+    Name:
+  </dt>
+  <dd class="col-sm-9">
      <%= @app.name %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <strong>App key:</strong>
-    </td>
-    <td>
+  </dd>
+  <dt class="col-sm-3">
+    App key:
+  </dt>
+  <dd class="col-sm-9">
      <%= @app.app_key %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <strong>Permissions:</strong>
-    </td>
-    <td>
+  </dd>
+  <dt class="col-sm-3">
+    Permissions:
+  </dt>
+  <dd class="col-sm-9">
 <pre>
 <%= json_pretty_generate(@app.permissions) %>
 </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <strong>Jwt secret:</strong>
-    </td>
-    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">
+  </dd>
+  <dt class="col-sm-3">
+    Jwt secret:
+  </dt>
+  <dd class="col-sm-9" style="word-wrap: break-word;">
       <%= @app.jwt_secret %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <strong>Timeout:</strong>
-    </td>
-    <td>
+  </dd>
+  <dt class="col-sm-3">
+    Timeout:
+  </dt>
+  <dd class="col-sm-9" style="word-wrap: break-word;">
       <%= @app.timeout %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-     <strong>Users:</strong>
-    </td>
-    <td>
+  </dd>
+  <dt class="col-sm-3">
+    Users:
+  </dt>
+  <dd class="col-sm-9" style="word-wrap: break-word;">
      <%= @app.allowed_apps.map { |allowed_app| link_to "#{allowed_app.user.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(allowed_app.user, allowed_app) }.join(', ').html_safe %>
-    </td>
-  </tr>
-</table>
+  </dd>
+</dl>
+
 
 
 <% content_for :footer do %>

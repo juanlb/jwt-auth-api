@@ -1,5 +1,7 @@
 class SessionsController < Devise::SessionsController
   before_action :one_admin_registered?, only: [:new, :create]
+  layout "devise"
+
 
     protected
 

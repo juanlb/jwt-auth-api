@@ -12,7 +12,7 @@ class User < ApplicationRecord
   validates :name, :user_key, uniqueness: true, presence: true
   validates :email, email: true, uniqueness: true, presence: true
 
-  validates :password, length: { minimum: 8 }, allow_nil: true
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
 
   def password=(password)
