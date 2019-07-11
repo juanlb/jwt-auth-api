@@ -53,12 +53,12 @@ class AppsController < ApplicationController
   end
 
   # DELETE /apps/1
-  # DELETE /apps/1.json
   def destroy
     @app.destroy
-    respond_to do |format|
-      format.html { redirect_to apps_url, notice: 'App was successfully destroyed.' }
-      format.json { head :no_content }
+    if @app.errors.any?
+      redirect_to apps_url, alert: @app.errors.full_messages.join(', ')
+    else
+      redirect_to apps_url, notice: 'App was successfully destroyed.'
     end
   end
 

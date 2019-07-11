@@ -25,7 +25,7 @@
           <%= enabled_icon(user.enabled) %>
         </td>
         <td class="table-cell" data-href="<%= user_path(user) %>">
-          <%= user.password_setted %>
+          <%= user.password_setted? %>
         </td>
         <td class="table-cell" data-href="<%= user_path(user) %>">
           <%= show_permissions_state(user.permissions_state) %>

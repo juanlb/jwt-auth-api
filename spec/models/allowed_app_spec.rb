@@ -12,6 +12,7 @@ RSpec.describe AllowedApp, type: :model do
   describe 'associations' do
     it { should belong_to(:app) }
     it { should belong_to(:user) }
+    it { should have_one(:refresh_token).dependent(:destroy) }
   end
 
   describe 'Uniqueness validations with app' do

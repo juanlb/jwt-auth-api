@@ -7,6 +7,7 @@ class AllowedApp < ApplicationRecord
 
   belongs_to :user
   belongs_to :app
+  has_one :refresh_token, dependent: :destroy
 
   validates :user_id, :app_id, presence: true
   validates :user_id, uniqueness: { scope: :app_id, message: 'only can be associated with an app once.' }
