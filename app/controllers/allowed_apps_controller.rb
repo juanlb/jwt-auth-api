@@ -21,6 +21,13 @@ class AllowedAppsController < ApplicationController
     end
   end
 
+  def edit
+    if @allowed_app.need_suggestion?
+      @suggestion = true
+      @allowed_app.permissions = PermissionsSuggestion.new(@allowed_app.app.permissions).call.to_json
+    end
+  end
+
   def update
     if @allowed_app.update(allowed_app_params)
       redirect_to user_allowed_app_path(@user, @allowed_app), notice: 'Allowed app was successfully updated.'

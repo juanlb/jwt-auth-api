@@ -23,7 +23,43 @@ class PermissionSchema
     end
   end
 
+  def suggestion
+    case type
+    when 'array'
+      suggest_array
+    when 'string'
+      suggest_string
+    when 'integer'
+      suggest_integer
+    when 'boolean'
+      suggest_boolean
+    else
+      raise 'Invalid schema type'
+    end
+  end
+
   private
+
+  def suggest_array
+    suggest_hash(key, value.first)
+  end
+
+  def suggest_string
+    suggest_hash(key, "")
+  end
+
+  def suggest_integer
+    suggest_hash(key, 0)
+  end
+
+  def suggest_boolean
+    suggest_hash(key, false)
+  end
+
+  def suggest_hash(key, value)
+    { key.to_sym => value }
+  end
+
 
   def generate_array
     schema_hash(key, 'string', enum: value)

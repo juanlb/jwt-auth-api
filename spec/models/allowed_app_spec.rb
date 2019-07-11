@@ -57,4 +57,20 @@ RSpec.describe AllowedApp, type: :model do
       end
     end
   end
+
+  describe '#need_suggestion?' do
+    context 'witn valid permissions' do
+      subject{create(:allowed_app).need_suggestion?}
+      it 'return false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'witn invalid and empty permissions' do
+      subject{create(:allowed_app, permissions: '{}').need_suggestion?}
+      it 'return true' do
+        expect(subject).to be true
+      end
+    end
+  end
 end

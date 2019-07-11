@@ -3,19 +3,5 @@
 <%= render 'form', app: @app %>
 
 <% content_for :operations do %>
-<pre>
-For Permissions uou can use:
-
-- Array
-"role": ["admin", "user"]
-
-- String
-"internal_code": "string"
-
-- Integer
-"quantity": "integer"
-
-- Boolean
-"enabled": "boolean"
-</pre>
+<%= render partial: 'json_permission_reference'%>
 <% end %>

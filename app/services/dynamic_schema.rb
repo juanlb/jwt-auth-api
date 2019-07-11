@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DynamicSchema
+  attr_reader :permissions_array
   def initialize(permissions)
     @permissions_array = JSON.parse(permissions).to_a
   end
@@ -15,7 +16,7 @@ class DynamicSchema
   private
 
   def permissions_schema
-    @permissions_array.map { |p| PermissionSchema.new(p).generate }.inject(:merge)
+    permissions_array.map { |p| PermissionSchema.new(p).generate }.inject(:merge)
   end
 
   def schema_structure
@@ -29,6 +30,6 @@ class DynamicSchema
   end
 
   def required_properties
-    @permissions_array.map(&:first)
+    permissions_array.map(&:first)
   end
 end

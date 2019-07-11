@@ -29,6 +29,10 @@ class AllowedApp < ApplicationRecord
     not ((not valid?) and errors.messages[:permissions] and errors.messages[:permissions].include? 'JSON Schema Invalid')
   end
 
+  def need_suggestion?
+    permissions == '{}' and not(permissions_valid?)
+  end
+
   private
 
   def dynamic_app_schema

@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe DynamicSchema do
+RSpec.describe PermissionsSuggestion do
   describe '.new' do
     context 'with no JSON param' do
       let(:no_json) { 'not a JSON' }
-      subject { DynamicSchema.new(no_json) }
+      subject { PermissionsSuggestion.new(no_json) }
       it 'raise a JSON parse error exeption' do
         expect { subject }.to raise_error(/unexpected token/)
       end
@@ -16,21 +16,21 @@ RSpec.describe DynamicSchema do
   describe '#call' do
     context 'with valid input' do
       let(:permission_json) { '{"active": ["true", "false"], "quantity": "integer", "code": "string", "enabled": "boolean"}' }
-      subject { DynamicSchema.new(permission_json).call }
+      subject { PermissionsSuggestion.new(permission_json).call }
       it 'return a valid JSON schema' do
-        expect(subject).to eq(required: %w[active quantity code enabled], additionalProperties: false, properties: { active: { enum: %w[true false], type: 'string' }, code: { type: 'string' }, malformed_json: { not: {} }, quantity: { type: 'integer' }, enabled: { type: 'boolean' } }, type: 'object')
+        expect(subject).to eq(active: 'true', quantity: 0, code: '', enabled: false)
       end
     end
     context 'with {} input' do
       let(:permission_json) { '{}' }
-      subject { DynamicSchema.new(permission_json).call }
+      subject { PermissionsSuggestion.new(permission_json).call }
       it 'return a valid JSON schema without properties' do
-        expect(subject).to eq(required: [], additionalProperties: false, properties: { malformed_json: { not: {} } }, type: 'object')
+        expect(subject).to eq({})
       end
     end
     context 'with nil input' do
       let(:permission_json) { nil }
-      subject { DynamicSchema.new(permission_json).call }
+      subject { PermissionsSuggestion.new(permission_json).call }
       it 'return a valid JSON schema' do
         expect { subject }.to raise_error(/no implicit conversion of nil into String/)
       end
