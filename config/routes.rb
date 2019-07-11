@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      post 'jwt/auth'
+      post 'jwt/refresh'
+    end
+  end
+
   resources :users do
     resources :allowed_apps, only: [:index, :create, :show, :edit, :update, :destroy] do
     end

@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:allowed_apps) }
+    it { should have_many(:allowed_apps).dependent(:destroy) }
     it { should have_many(:apps).through(:allowed_apps) }
   end
 
@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'returns "password setted" false' do
-        expect(subject.password_setted).to be false
+        expect(subject.password_setted?).to be false
       end
     end
 
@@ -81,7 +81,7 @@ RSpec.describe User, type: :model do
 
       it 'returns "password setted" false' do
         subject.password = password
-        expect(subject.password_setted).to be false
+        expect(subject.password_setted?).to be false
       end
     end
     context 'Good password' do
@@ -94,7 +94,7 @@ RSpec.describe User, type: :model do
 
       it 'returns "password setted" true' do
         subject.password = password
-        expect(subject.password_setted).to be true
+        expect(subject.password_setted?).to be true
       end
     end
   end
@@ -122,13 +122,102 @@ RSpec.describe User, type: :model do
     end
 
     context 'user with 1 good and 1 bad relation' do
-      let!(:user) {create(:user)}
-      let!(:app_1) {create(:app)}
-      let!(:app_2) {create(:app)}
-      let!(:allowed_app_1) {create(:allowed_app, user:user, app: app_1)}
-      let!(:allowed_app_2) {create(:allowed_app, user:user, app: app_2, permissions: '{}')}
+      let!(:user) { create(:user) }
+      let!(:app_1) { create(:app) }
+      let!(:app_2) { create(:app) }
+      let!(:allowed_app_1) { create(:allowed_app, user: user, app: app_1) }
+      let!(:allowed_app_2) { create(:allowed_app, user: user, app: app_2, permissions: '{}') }
       it 'user returns valid 0 and invalid 1' do
         expect(user.permissions_state).to eq(invalid: 1, valid: 1)
+      end
+    end
+  end
+
+  describe 'scope .enabled' do
+    context 'two user, the second enabled' do
+      let!(:user_disabled) { create(:user, enabled: false) }
+      let!(:user_enabled) { create(:user) }
+      it 'returns the enabled' do
+        expect(User.enabled.first).to eq user_enabled
+      end
+
+      it 'returns just 1' do
+        expect(User.enabled.count).to eq 1
+      end
+    end
+  end
+
+  describe 'scope .password_setted' do
+    context 'two user, the second enabled' do
+      let!(:user_without_pass) { create(:user) }
+      let!(:user_with_pass) { create(:user, password: 'validpassword') }
+      it 'returns the enabled' do
+        expect(User.password_setted.first).to eq user_with_pass
+      end
+
+      it 'returns just 1' do
+        expect(User.password_setted.count).to eq 1
+      end
+    end
+  end
+
+  describe '.email_with_password' do
+    context 'with password setted and valid pass' do
+      let(:validpass) { 'validpassword' }
+      let!(:user_with_pass) { create(:user) }
+      it 'returns the user' do
+        user_with_pass.password = validpass
+        user_with_pass.save
+        expect(User.email_with_password(user_with_pass.email, validpass)).to eq user_with_pass
+      end
+    end
+
+    context 'with password setted and invalid pass' do
+      let(:validpass) { 'validpassword' }
+      let(:invalidpass) { 'other_pass' }
+      let!(:user_with_pass) { create(:user) }
+      it 'returns the user' do
+        user_with_pass.password = validpass
+        user_with_pass.save
+        expect(User.email_with_password(user_with_pass.email, invalidpass)).to eq nil
+      end
+    end
+
+    context 'with password setted and incorrect user' do
+      let(:validpass) { 'validpassword' }
+      let(:other_mail) { 'other@mail.com' }
+      let!(:user_with_pass) { create(:user) }
+      it 'returns the user' do
+        user_with_pass.password = validpass
+        user_with_pass.save
+        expect(User.email_with_password(other_mail, validpass)).to eq nil
+      end
+    end
+
+    context 'with nil params' do
+      let(:validpass) { 'validpassword' }
+      let!(:user_with_pass) { create(:user) }
+      it 'returns the user' do
+        user_with_pass.password = validpass
+        user_with_pass.save
+        expect(User.email_with_password(nil, nil)).to eq nil
+      end
+    end
+
+    context 'without password setted' do
+      let(:inexistent_pass) { 'inexistent_pass' }
+      let!(:user_without_pass) { create(:user) }
+      it 'returns the user' do
+        expect(User.email_with_password(user_without_pass.email, inexistent_pass)).to eq nil
+      end
+    end
+  end
+
+  describe '#jwt_attributes' do
+    context 'with valid user data' do
+      subject { create(:user) }
+      it 'return a hash with user data' do
+        expect(subject.jwt_attributes).to eq(name: subject.name, email: subject.email)
       end
     end
   end

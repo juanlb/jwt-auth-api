@@ -39,8 +39,12 @@ RSpec.describe App, type: :model do
     context 'with previous jwt_secret' do
       subject {create(:app)}
 
-      it 'change jwt_secret' do
-        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_secret}
+      it 'change jwt_rsa_private_key' do
+        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_rsa_private_key}
+      end
+
+      it 'change jwt_rsa_public_key' do
+        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_rsa_public_key}
       end
     end
   end
@@ -57,8 +61,12 @@ RSpec.describe App, type: :model do
         expect(subject.app_key).to start_with('app-name-')
       end
 
-      it 'jwt_secret be something' do
-        expect(subject.jwt_secret).not_to be_empty
+      it 'jwt_rsa_private_key be something' do
+        expect(subject.jwt_rsa_private_key).not_to be_empty
+      end
+
+      it 'jwt_rsa_public_key be something' do
+        expect(subject.jwt_rsa_public_key).not_to be_empty
       end
 
       it 'permissions be an Hash' do
@@ -70,7 +78,7 @@ RSpec.describe App, type: :model do
       subject do
         create(:app, permissions: '{"invalid": "json"}')
       end
-      
+
       it 'raise validation error' do
         expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
       end
@@ -91,9 +99,14 @@ RSpec.describe App, type: :model do
     context 'edit name' do
       subject { create(:app) }
 
-      it 'dont change jwt secret' do
+      it 'dont change jwt_rsa_private_key' do
         subject.name = 'otro'
-        expect { subject.save }.to_not change { subject.reload.jwt_secret }
+        expect { subject.save }.to_not change { subject.reload.jwt_rsa_private_key }
+      end
+
+      it 'dont change jwt_rsa_public_key' do
+        subject.name = 'otro'
+        expect { subject.save }.to_not change { subject.reload.jwt_rsa_public_key }
       end
 
       it 'dont change app_key' do
@@ -136,4 +149,23 @@ RSpec.describe App, type: :model do
       end
     end
   end
+
+  describe '#rsa_private_key' do
+    context 'valid private key' do
+      subject{create(:app).rsa_private_key}
+      it 'returns a OpenSSL::PKey::RSA' do
+        expect(subject.class).to be OpenSSL::PKey::RSA
+      end
+    end
+  end
+
+  describe '#jwt_attributes' do
+    context 'with valid app data' do
+      subject{create(:app)}
+      it 'return a hash with app data' do
+        expect(subject.jwt_attributes).to eq({app_name: subject.name})
+      end
+    end
+  end
+
 end

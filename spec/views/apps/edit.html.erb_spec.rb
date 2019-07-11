@@ -6,7 +6,6 @@ RSpec.describe "apps/edit", type: :view do
       :name => "MyString",
       :app_key => "MyString",
       :permissions => '{"key1": ["value1", "value2"], "key2": ["value1", "value2"]}',
-      :jwt_secret => "MyString",
       :timeout => 1
     ))
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_28_195629) do
+ActiveRecord::Schema.define(version: 2019_07_10_225102) do
 
   create_table "admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -38,10 +38,19 @@ ActiveRecord::Schema.define(version: 2019_06_28_195629) do
     t.string "name"
     t.string "app_key"
     t.string "permissions", default: "--- {}\n"
-    t.string "jwt_secret"
+    t.text "jwt_rsa_private_key"
+    t.text "jwt_rsa_public_key"
     t.integer "timeout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "refresh_tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "token"
+    t.bigint "allowed_app_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["allowed_app_id"], name: "index_refresh_tokens_on_allowed_app_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
