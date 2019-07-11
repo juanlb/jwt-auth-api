@@ -19,8 +19,9 @@
           <%= allowed_app.app.name %>
         </td>
         <td class="table-cell" data-href="<%= user_allowed_app_path(@user, allowed_app) %>">
-          <%= allowed_app.permissions %>
-        </td>
+<pre>
+<small><%= json_pretty_generate(allowed_app.permissions) %></small>
+</pre>        </td>
         <td class="table-cell" data-href="<%= user_allowed_app_path(@user, allowed_app) %>">
           <%= permission_state(allowed_app) %><%=  %>
         </td>
