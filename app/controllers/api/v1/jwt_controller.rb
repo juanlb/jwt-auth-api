@@ -22,6 +22,12 @@ class Api::V1::JwtController < ApiController
     end
   end
 
+  def valid
+    app = App.where(app_key: valid_params[:app_key]).take
+    res = JwtChecker.new(app, valid_params[:jwt_token]).call
+    render json: res[:response], status: res[:status]
+  end
+
   private
 
   def input_validator
@@ -34,5 +40,9 @@ class Api::V1::JwtController < ApiController
 
   def refresh_params
     params.require(:jwt).permit(:refresh_token)
+  end
+
+  def valid_params
+    params.require(:jwt).permit(:jwt_token, :app_key)
   end
 end
