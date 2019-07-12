@@ -1,0 +1,41 @@
+<h1>Apps</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Permissions</th>
+      <th>Timeout</th>
+      <th>Users</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @apps.each do |app| %>
+      <tr>
+        <td class="table-cell" data-href="<%= app_path(app) %>">
+          <%= app.name %>
+        </td>
+        <td class="table-cell" data-href="<%= app_path(app) %>">
+<pre>
+<small><%= json_pretty_generate(app.permissions) %></small>
+</pre>
+        </td>
+        <td class="table-cell" data-href="<%= app_path(app) %>">
+          <%= app.timeout %>
+        </td>
+        <td class="table-cell" data-href="<%= app_path(app) %>">
+          <%= show_permissions_state(app.permissions_state) %>
+        </td>
+        <td><%= link_to 'Edit', edit_app_path(app), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :footer do %>
+<%= link_to 'New App', new_app_path, class: 'btn btn-primary' %>
+<% end %>
+

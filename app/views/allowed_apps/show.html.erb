@@ -1,0 +1,21 @@
+<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+
+<table class="table">
+<tr>
+  <td>
+  <strong>Permissions:</strong>
+<pre>
+<%= json_pretty_generate(@allowed_app.permissions) %>
+
+</pre>
+  </td>
+  <td>
+<%= render 'apps/show_schema', app: @allowed_app.app %>
+  </td>
+</tr>
+</table>
+
+
+<% content_for :footer do %>
+<%= link_to 'Edit', edit_user_allowed_app_path(@user, @allowed_app), class: 'btn btn-primary' %>
+<% end %>

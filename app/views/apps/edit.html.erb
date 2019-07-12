@@ -1,0 +1,10 @@
+<h1>Editing App</h1>
+
+<%= render 'form', app: @app %>
+
+<% content_for :operations do %>
+  <%= link_to 'Show', @app, class: 'btn btn-primary' %>
+  <p>
+  <%= render partial: 'json_permission_reference'%>
+  </p>
+<% end %>

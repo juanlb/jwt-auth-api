@@ -1,0 +1,7 @@
+<h1>New App</h1>
+
+<%= render 'form', app: @app %>
+
+<% content_for :operations do %>
+<%= render partial: 'json_permission_reference'%>
+<% end %>

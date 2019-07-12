@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render "layouts/head_section" %>
+    <%= stylesheet_link_tag 'signin', media: 'all', 'data-turbolinks-track' => true %>
+
+  </head>  <body class="text-center">
+    <div class="container-fluid">
+      <%= render "shared/flash_messages" %>
+        <div class="row">
+            <%= yield %>
+        </div><!-- row -->
+    </div><!-- container-fluid -->
+  </body>
+</html>

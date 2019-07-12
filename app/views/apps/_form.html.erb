@@ -1,0 +1,30 @@
+<%= form_with(model: app, local: true) do |form| %>
+  <% if app.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4><%= pluralize(app.errors.count, "error") %> prohibited this app from being saved:</h4>
+
+      <ul>
+      <% app.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :permissions %>
+    <%= form.text_area(:permissions, size: '50x8', value: json_pretty_generate(app.permissions), class: 'form-control') %>
+  </div>
+  <div class="form-group">
+    <%= form.label :timeout %>
+    <%= form.number_field :timeout, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

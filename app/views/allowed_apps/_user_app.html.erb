@@ -1,0 +1,4 @@
+<h3>User: <%= link_to "#{user.name} - #{user.email}", user_allowed_apps_path(user.id) %></h3>
+<% if allowed_app.app %>
+<h3>App: <%= link_to "#{allowed_app.app.name}", app_path(allowed_app.app) %> <%= permission_state(allowed_app) %></h3>
+<% end %>

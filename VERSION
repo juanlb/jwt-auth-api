@@ -1,0 +1,12 @@
+0.1.0
+  First functional version
+  Create Apps
+  Confiugre permissions with json schema validation
+  RSA256 Public and Private key
+  Create Users
+  Vinculate Users and Apps
+  Confiugre permissions of user-app with dynamic json schema validation
+  API endpoint for get JWT and refresh token using user_key, and using email/pass
+  API endpoint for refresh JWT
+  API endpoint for validate JWT
+  Full tested

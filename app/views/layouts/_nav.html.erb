@@ -1,0 +1,10 @@
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+  <%= link_to "JWT Auth", root_path, class: "navbar-brand col-sm-3 col-md-2 mr-0" %>
+  <ul class="navbar-nav px-3">
+        <% if current_admin %>
+          <li class="nav-item text-nowrap"><%= link_to "Sign Out", destroy_admin_session_path, method: :delete, class: 'nav-link' %></li>
+        <% else %>
+          <li class="nav-item text-nowrap"><%= link_to "Sign In", new_admin_session_path, class: 'nav-link' %></li>
+        <% end %>
+  </ul>
+</nav>

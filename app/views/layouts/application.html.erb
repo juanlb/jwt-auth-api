@@ -1,0 +1,14 @@
+  <%= render "layouts/pre_yield" %>
+      <% if @fullpage %>
+            <%= yield %>
+      <% else %>
+          <div class="row">
+            <div class="col-sm-8">
+              <%= yield %>
+            </div>
+            <div class="col-sm-4">
+              <%= yield :operations %>
+            </div>
+          </div>
+      <% end%>
+  <%= render "layouts/post_yield" %>

@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "malformed_json": {
+            "not": {}
+        }
+    },
+    "additionalProperties": {
+        "type": [
+            "array",
+            "string"
+        ],
+        "items": {
+            "type": "string"
+        },
+    "pattern": "^string|integer|boolean$"
+    }
+}

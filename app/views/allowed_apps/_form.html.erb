@@ -1,0 +1,30 @@
+<%= form_with(model: allowed_app, url: [@user, allowed_app], local: true) do |form| %>
+  <% if allowed_app.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4><%= pluralize(allowed_app.errors.count, "error") %> prohibited this allowed_app from being saved:</h4>
+
+      <ul>
+      <% allowed_app.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="field">
+        <%= form.label :permissions %> <% if @suggestion %><strong>(Automatic Suggestion)</strong><% end %>
+        <%= form.text_area(:permissions, size: '50x10', value: json_pretty_generate(allowed_app.permissions)) %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <%= render 'apps/show_schema', app: @allowed_app.app %>
+    </div>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>
