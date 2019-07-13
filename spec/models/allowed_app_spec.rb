@@ -73,4 +73,22 @@ RSpec.describe AllowedApp, type: :model do
       end
     end
   end
+
+  describe '#permissions_or_suggestion' do
+    context 'witn valid permissions' do
+      let(:allowed_app){create(:allowed_app)}
+      subject{allowed_app.permissions_or_suggestion}
+      it 'return permissions' do
+        expect(subject).to eq allowed_app.permissions
+      end
+    end
+
+    context 'witn invalid and empty permissions' do
+      let(:allowed_app){create(:allowed_app, permissions: '{}')}
+      subject{allowed_app.permissions_or_suggestion}
+      it 'return suggestino' do
+        expect(subject).to eq PermissionsSuggestion.new(allowed_app.app.permissions).call.to_json
+      end
+    end
+  end
 end

@@ -33,6 +33,14 @@ class AllowedApp < ApplicationRecord
     permissions == '{}' and not(permissions_valid?)
   end
 
+  def permissions_or_suggestion
+    if need_suggestion?
+      PermissionsSuggestion.new(app.permissions).call.to_json
+    else
+      permissions
+    end
+  end
+
   private
 
   def dynamic_app_schema

@@ -14,8 +14,9 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="field">
-        <%= form.label :permissions %> <% if @suggestion %><strong>(Automatic Suggestion)</strong><% end %>
-        <%= form.text_area(:permissions, size: '50x10', value: json_pretty_generate(allowed_app.permissions)) %>
+        <%= form.label :permissions %>
+        <%= form.text_area(:permissions, size: '50x10', value: json_pretty_generate(allowed_app.permissions_or_suggestion)) %>
+        <%= content_tag :strong, '(Automatic Suggestion)' if allowed_app.need_suggestion? %>
       </div>
     </div>
     <div class="col-sm-6">
