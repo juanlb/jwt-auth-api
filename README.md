@@ -58,13 +58,10 @@ TODO: Hacer configurable que los permissions sean opcionales.
 #### app_key
 
 Una vez creada la `App`, se genera automáticamente una `app_key`.
-
 La `app_key` es una de las partes necesarias para que el servicio entrege JWT.
-
 La `app_key` debe ser configurada en la aplicación que se quiere asegurar con este servicio.
 
 Todos los pedidos que haga la aplicación al servicio, tienen que tener como parámetro obligatorio la `app_key`.
-
 En caso de necesitar rotación, la función `Reset App Key` genera una nueva.
 
 TODO: Armar la `app_key` como JWT y autenticar la sección de API.
@@ -155,3 +152,121 @@ Para el ejemplo que vimos más arriba:
 }
 ```
 ## API
+
+Endpoints disponibles:
+
+### /api/v1/auth
+
+Este endpoint entrega un JWT válido para el user y la app solicitado.
+
+#### Parámetros
+
+Puede recibir dos formas:
+
+##### user_key
+
+```
+{
+  "user_key" : "vaid_user_key",
+  "app_key" : "vaid_app_key"
+}
+```
+
+##### email y password
+
+```
+{
+  "email" : "vaid_email",
+  "password" : "vaid_password",
+  "app_key" : "vaid_app_key"
+}
+```
+
+
+#### Respuesta
+##### Ok
+En ambos casos, si todo está correcto, la repuesta será:
+
+```
+{
+  "jwt": "valid_jwt_for_user_app",
+  "refresh_token": "token_to_get_new_valid_jwt"
+}
+```
+##### Error
+En caso de **caulquier** campo inválido, la respuesta será:
+
+```
+{}
+```
+con `status:400 Bad Request`
+
+### /api/v1/refresh
+
+Este endpoint es para obtener un nuevo JWT para cuado el anterior esté expirado.
+
+#### Parametros
+
+```
+{
+  "refresh_token": "valid_refresh_token"
+}
+```
+
+#### Respuesta
+##### Ok
+En ambos casos, si todo está correcto, la repuesta será:
+
+```
+{
+  "jwt": "NEW_valid_jwt_for_user_app",
+  "refresh_token": "NEW_token_to_get_new_valid_jwt"
+}
+```
+##### Error
+En caso de **caulquier** campo inválido, la respuesta será:
+
+```
+{}
+```
+con `status:400 Bad Request`
+
+### /api/v1/valid
+
+Este endpoint sirve para validar si un JWT es válido y no está expirado.
+Este endpoint se provee solo por si no se quiere incluir el control del JWT dentro de la aplicación que se está asegurando.
+
+#### Parametros
+
+```
+{
+  "jwt_token": "jwt_to_evaluate",
+  "app_key": "valid_app_key"
+}
+```
+
+#### Respuesta
+##### Ok
+```
+{ message: 'Valid token' }
+```
+`status: 200 success`
+##### Invalid Siganure
+```
+{ error: 'Verification Signature Fail' }
+```
+`status: 401 unauthorized` 
+##### Expired Token
+```
+{ error: 'Expired token' }
+```
+`status: 401 unauthorized` 
+##### Unknown error
+```
+{ error: 'Unknown error' }
+```
+`status: 401 unauthorized`
+
+### /api/v1/public_key
+
+TODO: endpoint para obtener la clave pública de una determinada `App`.
