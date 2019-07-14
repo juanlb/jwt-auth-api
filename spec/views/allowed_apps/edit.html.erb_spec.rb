@@ -15,7 +15,7 @@ RSpec.describe 'allowed_apps/edit', type: :view do
     it 'renders the edit allowed_app form' do
       render
 
-      assert_select 'form[action=?][method=?]', user_allowed_app_path(@user, allowed_app), 'post' do
+      assert_select 'form[action=?][method=?]', allowed_app_path(allowed_app), 'post' do
         assert_select 'textarea[name=?]', 'allowed_app[permissions]'
         assert_select "strong",  text: '(Automatic Suggestion)' , :count => 0
       end
@@ -33,7 +33,7 @@ RSpec.describe 'allowed_apps/edit', type: :view do
     it 'renders the edit allowed_app form' do
       render
 
-      assert_select 'form[action=?][method=?]', user_allowed_app_path(@user, allowed_app), 'post' do
+      assert_select 'form[action=?][method=?]', allowed_app_path(allowed_app), 'post' do
         assert_select 'textarea[name=?]', 'allowed_app[permissions]'
         assert_select "strong",  text: '(Automatic Suggestion)' , :count => 1
       end

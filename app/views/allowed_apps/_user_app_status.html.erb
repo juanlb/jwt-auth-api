@@ -1,0 +1,6 @@
+<%= render 'user_link'%>
+<%= render 'app_link'%>
+
+<% if @allowed_app %>
+  <h3>Status: <%= permission_state(@allowed_app) %></h3>
+<% end %>

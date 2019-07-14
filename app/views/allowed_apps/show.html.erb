@@ -1,12 +1,11 @@
-<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+<%= render 'user_app_status' %>
 
 <table class="table">
 <tr>
   <td>
   <strong>Permissions:</strong>
-<pre>
+<pre style="margin-top: 8px;">
 <%= json_pretty_generate(@allowed_app.permissions) %>
-
 </pre>
   </td>
   <td>
@@ -17,5 +16,5 @@
 
 
 <% content_for :footer do %>
-<%= link_to 'Edit', edit_user_allowed_app_path(@user, @allowed_app), class: 'btn btn-primary' %>
+<%= link_to 'Edit', edit_allowed_app_path(@allowed_app), class: 'btn btn-primary' %>
 <% end %>

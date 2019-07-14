@@ -1,0 +1,3 @@
+<% if @app %>
+  <h3>App: <%= link_to @app.name, app_allowed_apps_path(@app.id) %></h3>
+<% end %>

@@ -1,4 +1,4 @@
-<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+<%= render 'user_link' %>
 
 <h1>Allowed Apps</h1>
 
@@ -15,18 +15,18 @@
   <tbody>
     <% @user.allowed_apps.select(&:persisted?).each do |allowed_app| %>
       <tr>
-        <td class="table-cell" data-href="<%= user_allowed_app_path(@user, allowed_app) %>">
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
           <%= allowed_app.app.name %>
         </td>
-        <td class="table-cell" data-href="<%= user_allowed_app_path(@user, allowed_app) %>">
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
 <pre>
 <small><%= json_pretty_generate(allowed_app.permissions) %></small>
 </pre>        </td>
-        <td class="table-cell" data-href="<%= user_allowed_app_path(@user, allowed_app) %>">
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
           <%= permission_state(allowed_app) %><%=  %>
         </td>
-        <td><%= link_to 'Edit', edit_user_allowed_app_path(@user, allowed_app), class: 'btn btn-primary' %></td>
-        <td><%= link_to 'Destroy', user_allowed_app_path(@user, allowed_app), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        <td><%= link_to 'Edit', edit_allowed_app_path(allowed_app), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', allowed_app_path(allowed_app), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,6 @@
 
 <br>
 <h1>Add App</h1>
+<div class="card card-body bg-light">
 <%= render 'new_form', allowed_app: @allowed_app %>
+</div>
