@@ -4,7 +4,7 @@ class Api::V1::JwtController < ApiController
 
   def auth
     allowed_app = input_validator.get_allowed_app
-    jwt = JwtGenerator.new(allowed_app).call
+    jwt = JwtRefreshResponseGenerator.new(allowed_app).call
     if jwt
       render json: jwt
     else
@@ -17,7 +17,7 @@ class Api::V1::JwtController < ApiController
     if refresh_token.nil?
       render json: {}, status: :bad_request
     else
-      jwt = JwtGenerator.new(refresh_token.allowed_app).call
+      jwt = JwtRefreshResponseGenerator.new(refresh_token.allowed_app).call
       render json: jwt
     end
   end

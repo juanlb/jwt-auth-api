@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe JwtGenerator do
+RSpec.describe JwtRefreshResponseGenerator do
   describe '#call' do
-    subject { JwtGenerator.new(allowed_app).call }
+    subject { JwtRefreshResponseGenerator.new(allowed_app).call }
 
     context 'when allowed_app is nil' do
       let(:allowed_app) { nil }

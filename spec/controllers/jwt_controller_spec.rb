@@ -77,7 +77,7 @@ RSpec.describe Api::V1::JwtController, type: :controller do
   describe 'POST #refresh' do
     context 'valid refresh token' do
       let(:allowed_app) { create(:allowed_app) }
-      let(:refresh_token) { JwtGenerator.new(allowed_app).call[:refresh_token] }
+      let(:refresh_token) { JwtRefreshResponseGenerator.new(allowed_app).call[:refresh_token] }
       it 'returns http success' do
         post :refresh, params: { jwt: { refresh_token: refresh_token } }
         expect(response).to have_http_status(:success)
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::JwtController, type: :controller do
 
     context 'invalid refresh token' do
       let(:allowed_app) { create(:allowed_app) }
-      let(:refresh_token) { JwtGenerator.new(allowed_app).call[:refresh_token] }
+      let(:refresh_token) { JwtRefreshResponseGenerator.new(allowed_app).call[:refresh_token] }
       let(:invalid_refresh_token) { 'invalid_refresh_token' }
       it 'returns http bad_request' do
         post :refresh, params: { jwt: { refresh_token: invalid_refresh_token } }
@@ -98,7 +98,7 @@ RSpec.describe Api::V1::JwtController, type: :controller do
   describe 'POST #valid' do
     context 'valid token' do
       let(:allowed_app) { create(:allowed_app) }
-      let(:jwt_token) { JwtGenerator.new(allowed_app).call[:jwt] }
+      let(:jwt_token) { JwtRefreshResponseGenerator.new(allowed_app).call[:jwt] }
       it 'returns http success' do
         post :valid, params: { jwt: { jwt_token: jwt_token, app_key: allowed_app.app.app_key } }
         expect(response).to have_http_status(:success)
@@ -107,7 +107,7 @@ RSpec.describe Api::V1::JwtController, type: :controller do
 
     context 'invalid token' do
       let(:allowed_app) { create(:allowed_app) }
-      let(:jwt_token) { 'error' + JwtGenerator.new(allowed_app).call[:jwt] }
+      let(:jwt_token) { 'error' + JwtRefreshResponseGenerator.new(allowed_app).call[:jwt] }
       it 'returns http unauthorized Unknown error' do
         post :valid, params: { jwt: { jwt_token: jwt_token, app_key: allowed_app.app.app_key } }
         expect(response).to have_http_status(:unauthorized)
@@ -118,7 +118,7 @@ RSpec.describe Api::V1::JwtController, type: :controller do
     context 'token from other user' do
       let(:allowed_app) { create(:allowed_app) }
       let(:allowed_app_invalid) { create(:allowed_app) }
-      let(:jwt_token) { JwtGenerator.new(allowed_app_invalid).call[:jwt] }
+      let(:jwt_token) { JwtRefreshResponseGenerator.new(allowed_app_invalid).call[:jwt] }
       it 'returns http unauthorized Verification Signature Fail' do
         post :valid, params: { jwt: { jwt_token: jwt_token, app_key: allowed_app.app.app_key } }
         expect(response).to have_http_status(:unauthorized)

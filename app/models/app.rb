@@ -47,6 +47,11 @@ class App < ApplicationRecord
     }
   end
 
+  def api_jwt
+    payload = {app_key: app_key}
+    JwtGenerator(payload, allowed_app.app.rsa_private_key).call
+  end
+
   private
 
   def set_secrets
