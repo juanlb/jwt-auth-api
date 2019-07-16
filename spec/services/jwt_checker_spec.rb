@@ -11,7 +11,7 @@ RSpec.describe JwtChecker do
       let(:app) { allowed_app.app }
       let(:jwt) { JwtGenerator.new(allowed_app).call[:jwt] }
       it 'returns that jwt is valid' do
-        expect(subject).to eq(response: { message: 'Valid token' }, status: :success)
+        expect(subject).to eq(response: { message: 'Valid token' }, status: :ok)
       end
     end
 

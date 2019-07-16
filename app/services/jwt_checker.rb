@@ -13,7 +13,7 @@ class JwtChecker
     rsa_public_key = OpenSSL::PKey::RSA.new(app.jwt_rsa_public_key)
     JWT.decode(jwt, rsa_public_key, true, algorithm: algorithm)
 
-    { response: { message: 'Valid token' }, status: :success }
+    { response: { message: 'Valid token' }, status: :ok }
   rescue JWT::VerificationError
     { response: { error: 'Verification Signature Fail' }, status: :unauthorized }
   rescue JWT::ExpiredSignature

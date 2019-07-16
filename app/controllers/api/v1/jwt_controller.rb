@@ -28,6 +28,15 @@ class Api::V1::JwtController < ApiController
     render json: res[:response], status: res[:status]
   end
 
+  def public_key
+    app = App.where(app_key: public_key_params[:app_key]).take
+    if app.nil?
+      render json: {}, status: :bad_request
+    else
+      render json: {public_key: app.jwt_rsa_public_key}
+    end
+  end
+
   private
 
   def input_validator
@@ -44,5 +53,9 @@ class Api::V1::JwtController < ApiController
 
   def valid_params
     params.require(:jwt).permit(:jwt_token, :app_key)
+  end
+
+  def public_key_params
+    params.require(:jwt).permit(:app_key)
   end
 end

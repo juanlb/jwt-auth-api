@@ -269,4 +269,18 @@ Este endpoint se provee solo por si no se quiere incluir el control del JWT dent
 
 ### /api/v1/public_key
 
-TODO: endpoint para obtener la clave pública de una determinada `App`.
+Endpoint para bajar la clave pública de una determinada `App`.
+#### Parametros
+
+```
+{
+  "app_key": "valid_app_key"
+}
+```
+
+#### Respuesta
+##### Ok
+```
+{ public_key: 'RSA PUBLIC KEY' }
+```
+`status: 200 success`

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       post 'jwt/auth'
       post 'jwt/refresh'
       post 'jwt/valid'
+      post 'jwt/public_key'
     end
   end
 

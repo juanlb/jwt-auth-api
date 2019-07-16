@@ -33,7 +33,7 @@
     Apps:
   </dt>
   <dd class="col-sm-9">
-      <%= @user.allowed_apps.map { |allowed_app| link_to "#{allowed_app.app.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
+      <%= @user.allowed_apps.map { |allowed_app| link_to "#{allowed_app.app.name} #{permission_state(allowed_app)}".html_safe, user_allowed_apps_path(@user, allowed_app) }.join(', ').html_safe %>
   </dd>
 </dl>
 
