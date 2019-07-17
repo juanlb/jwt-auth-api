@@ -40,8 +40,8 @@ RSpec.describe AppsController, type: :routing do
       expect(get: '/apps/1/reset_app_key').to route_to('apps#reset_app_key', id: '1')
     end
 
-    it 'routes to #reset_jwt_secret' do
-      expect(get: '/apps/1/reset_jwt_secret').to route_to('apps#reset_jwt_secret', id: '1')
+    it 'routes to #reset_rsa_key_pair' do
+      expect(get: '/apps/1/reset_rsa_key_pair').to route_to('apps#reset_rsa_key_pair', id: '1')
     end
   end
 end

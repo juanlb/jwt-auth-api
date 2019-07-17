@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      post 'jwt/auth'
-      post 'jwt/refresh'
-      post 'jwt/valid'
-      post 'jwt/public_key'
+      post 'auth/login'
+      post 'auth/refresh'
+      post 'auth/valid'
+      get 'auth/public_key'
     end
   end
 
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get 'allowed_apps', to: 'allowed_apps#index_app'
     member do
       get 'reset_app_key'
-      get 'reset_jwt_secret'
+      get 'reset_rsa_key_pair'
     end
   end
 

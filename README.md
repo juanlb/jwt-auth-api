@@ -25,7 +25,7 @@ Requiere los campos:
 * Permissions
 
 `Name` es un nombre descriptivo para la aplicación.
-`Timeout` es el tiempo en segundos que tendrá como parámetro `exp` el JWT. Es el tiempo en el que el token generado expirará y será inválido para su uso.
+`Timeout` es el tiempo en segundos que tendrá como parámetro `exp` el JWT. Es el tiempo en el que el token generado expirará y será inválido para su uso. En caso de poner el valor `0`, el token no tendrá tiempo de expiración.
 `Permissions` son los atributos necesarios que deben ser seteados para un usuario cuando se lo vincula con esta aplicación. Es un parámetro que requiere el ingreso de un JSON válido, con una determinada estructura.
 
 #### Permissions
@@ -55,18 +55,16 @@ En este caso, un `User` que sea vinculado con ésta aplicación, se tendrá que 
 
 TODO: Hacer configurable que los permissions sean opcionales.
 
-#### app_key
+#### API Access JWT
 
-Una vez creada la `App`, se genera automáticamente una `app_key`.
-La `app_key` es una de las partes necesarias para que el servicio entrege JWT.
-La `app_key` debe ser configurada en la aplicación que se quiere asegurar con este servicio.
+Una vez creada la `App`, se genera automáticamente una `API Access JWT`.
+La `API Access JWT` se genera en base a una `app_key`, la cual al ser reseteada, invalida la `API Access JWT` anterior.
+La `API Access JWT` debe ser configurada en la aplicación que se quiere asegurar con este servicio.
 
-Todos los pedidos que haga la aplicación al servicio, tienen que tener como parámetro obligatorio la `app_key`.
-En caso de necesitar rotación, la función `Reset App Key` genera una nueva.
+Todos los pedidos que haga la aplicación al servicio, tienen que tener `Authorization header` una `API Access JWT`
+En caso de necesitar rotación, la función `Reset API Access JWT` genera una nueva.
 
-TODO: Armar la `app_key` como JWT y autenticar la sección de API.
-
-#### JWT RSA Public Key
+#### RSA Public Key
 
 Los JWT que crea el servicio utilizan RS256 para su firma.
 
@@ -79,7 +77,7 @@ Esta es la clave pública para validar en la aplicación que se está asegurando
 
 Esta clave debe ser configurada en la aplicación que se desea asegurar.
 
-En caso de necesitar rotación, la función `Reset JWT Secret` genera un nuevo par de claves privada/pública.
+En caso de necesitar rotación, la función `Reset RSA Key pair` genera un nuevo par de claves privada/pública.
 
 TODO: Implementar un endpoint en la API para bajar la clave pública para una app.
 
@@ -153,11 +151,14 @@ Para el ejemplo que vimos más arriba:
 ```
 ## API
 
+Para utilizar la API se debe contar con una `API Access JWT` válida.
+Se deben eviar como `Authorization header`.
+
 Endpoints disponibles:
 
-### /api/v1/auth
+### POST /api/v1/auth/login
 
-Este endpoint entrega un JWT válido para el user y la app solicitado.
+Este endpoint entrega un JWT válido para el `user` solicitado, teniendo el cuenta la `app` que se indica con el `API Access JWT`.
 
 #### Parámetros
 
@@ -167,8 +168,7 @@ Puede recibir dos formas:
 
 ```
 {
-  "user_key" : "vaid_user_key",
-  "app_key" : "vaid_app_key"
+  "user_key" : "valid_user_key"
 }
 ```
 
@@ -176,9 +176,8 @@ Puede recibir dos formas:
 
 ```
 {
-  "email" : "vaid_email",
-  "password" : "vaid_password",
-  "app_key" : "vaid_app_key"
+  "email" : "valid_email",
+  "password" : "valid_password",
 }
 ```
 
@@ -201,9 +200,9 @@ En caso de **caulquier** campo inválido, la respuesta será:
 ```
 con `status:400 Bad Request`
 
-### /api/v1/refresh
+### POST /api/v1/auth/refresh
 
-Este endpoint es para obtener un nuevo JWT para cuado el anterior esté expirado.
+Este endpoint es para obtener un nuevo JWT para cuado el anterior esté expirado, teniendo el cuenta la `app` que se indica con el `API Access JWT`.
 
 #### Parametros
 
@@ -231,17 +230,16 @@ En caso de **caulquier** campo inválido, la respuesta será:
 ```
 con `status:400 Bad Request`
 
-### /api/v1/valid
+### POST /api/v1/auth/valid
 
-Este endpoint sirve para validar si un JWT es válido y no está expirado.
+Este endpoint sirve para validar si un JWT es válido y no está expirado, teniendo el cuenta la `app` que se indica con el `API Access JWT`.
 Este endpoint se provee solo por si no se quiere incluir el control del JWT dentro de la aplicación que se está asegurando.
 
 #### Parametros
 
 ```
 {
-  "jwt_token": "jwt_to_evaluate",
-  "app_key": "valid_app_key"
+  "jwt": "jwt_to_evaluate"
 }
 ```
 
@@ -267,16 +265,9 @@ Este endpoint se provee solo por si no se quiere incluir el control del JWT dent
 ```
 `status: 401 unauthorized`
 
-### /api/v1/public_key
+### GET /api/v1/auth/public_key
 
-Endpoint para bajar la clave pública de una determinada `App`.
-#### Parametros
-
-```
-{
-  "app_key": "valid_app_key"
-}
-```
+Endpoint para bajar la clave pública de la `app` que se indica con el `API Access JWT`.
 
 #### Respuesta
 ##### Ok

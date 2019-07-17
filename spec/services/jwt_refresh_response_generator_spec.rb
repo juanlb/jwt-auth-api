@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe JwtGenerator do
+RSpec.describe JwtRefreshResponseGenerator do
   describe '#call' do
-    subject { JwtGenerator.new(allowed_app).call }
+    subject { JwtRefreshResponseGenerator.new(allowed_app).call }
 
     context 'when allowed_app is nil' do
       let(:allowed_app) { nil }
@@ -42,13 +42,9 @@ RSpec.describe JwtGenerator do
   end
 
   private
-  
-  def algorithm(jwt_token)
-    JWT.decode(jwt_token, nil, false).last['alg']
-  end
 
   def decoded_jwt(jwt_token, allowed_app)
-    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.jwt_rsa_public_key
-    JWT.decode(jwt_token, rsa_public_key, true, {algorithm: algorithm(jwt_token)}).first
+    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.rsa_public_key
+    JsonWebToken.decode(jwt_token, rsa_public_key)
   end
 end

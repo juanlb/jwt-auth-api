@@ -21,3 +21,7 @@ Mas agregado de `SessionsController` para que si no hay `admin`, pida creación.
 # Table clicable
 
 https://codepen.io/NaokiIshimura/pen/aEvQPY
+
+# JWT API Auth
+
+https://medium.com/binar-academy/rails-api-jwt-authentication-a04503ea3248
