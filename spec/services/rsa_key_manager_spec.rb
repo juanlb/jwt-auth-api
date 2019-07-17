@@ -14,10 +14,10 @@ RSpec.describe RsaKeyManager do
     end
 
     describe '#load' do
-        subject{RsaKeyManager.new.load(jwt_rsa_private_key)}
+        subject{RsaKeyManager.new.load(rsa_private_key)}
 
         context 'normal use' do
-            let(:jwt_rsa_private_key) {RsaKeyManager.new.create[:rsa_private]}
+            let(:rsa_private_key) {RsaKeyManager.new.create[:rsa_private]}
             it 'returns a OpenSSL::PKey::RSA' do
                 expect(subject.class).to be OpenSSL::PKey::RSA
             end
@@ -25,7 +25,7 @@ RSpec.describe RsaKeyManager do
 
         context 'encrypt and decrypt' do
             let(:key_pair) {RsaKeyManager.new.create}
-            let(:jwt_rsa_private_key) { key_pair[:rsa_private]}
+            let(:rsa_private_key) { key_pair[:rsa_private]}
             let(:string_to_encrypt) { 'life is good' }
             it 'decrypt correct' do
                 decrypter = OpenSSL::PKey::RSA.new key_pair[:rsa_public], pass_phrase
@@ -35,7 +35,7 @@ RSpec.describe RsaKeyManager do
         end
 
         context 'invalid rsa private key' do
-            let(:jwt_rsa_private_key) { '-----BEGIN RSA PRIVATE KEY----- invalid data'}
+            let(:rsa_private_key) { '-----BEGIN RSA PRIVATE KEY----- invalid data'}
             it 'returns a OpenSSL::PKey::RSA' do
                 expect { subject }.to raise_error(/Neither PUB key nor PRIV key/)
             end

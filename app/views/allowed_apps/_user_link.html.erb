@@ -1,0 +1,3 @@
+<% if @user %>
+  <h4>User: <%= link_to "#{@user.name} - #{@user.email}", user_path(@user) %></h4>
+<% end %>

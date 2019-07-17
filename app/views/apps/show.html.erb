@@ -3,13 +3,9 @@
     Name:
   </dt>
   <dd class="col-sm-9">
-     <%= @app.name %>
-  </dd>
-  <dt class="col-sm-3">
-    App key:
-  </dt>
-  <dd class="col-sm-9">
-     <%= @app.app_key %>
+    <h4>
+      <%= @app.name %>
+    </h4>
   </dd>
   <dt class="col-sm-3">
     Permissions:
@@ -20,12 +16,21 @@
 </pre>
   </dd>
   <dt class="col-sm-3">
-    JWT RSA Public Key:
+    RSA Public Key:
   </dt>
   <dd class="col-sm-9" style="word-wrap: break-word;">
 <pre>
-<%= @app.jwt_rsa_public_key %>
-</pre>  </dd>
+<%= @app.rsa_public_key %>
+</pre>
+  </dd>
+  <dt class="col-sm-3">
+    API Access JWT:
+  </dt>
+  <dd class="col-sm-9" style="word-wrap: break-word;">
+<pre>
+<%= @app.api_jwt %>
+</pre>
+  </dd>
   <dt class="col-sm-3">
     Timeout:
   </dt>
@@ -36,19 +41,17 @@
     Users:
   </dt>
   <dd class="col-sm-9" style="word-wrap: break-word;">
-     <%= @app.allowed_apps.map { |allowed_app| link_to "#{allowed_app.user.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(allowed_app.user, allowed_app) }.join(', ').html_safe %>
+     <%= @app.allowed_apps.map { |allowed_app| link_to "#{allowed_app.user.name} #{permission_state(allowed_app)}".html_safe, allowed_app_path(allowed_app) }.join(' ').html_safe %>
   </dd>
 </dl>
-
-
 
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_app_path(@app), class: 'btn btn-primary' %>
 <% end %>
 
 <% content_for :operations do %>
-    <%= link_to 'Reset App Key', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
-    <%= link_to 'Reset JWT Secret', reset_jwt_secret_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Reset API Access JWT', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Reset RSA Key pair', reset_rsa_key_pair_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
     <%= link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-
+    <%= link_to 'Users', app_allowed_apps_path(@app), class: 'btn btn-info' %>
 <% end %>

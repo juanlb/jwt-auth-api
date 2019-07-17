@@ -9,20 +9,20 @@ RSpec.describe JwtChecker do
     context 'valid app and jwt' do
       let(:allowed_app) { create(:allowed_app) }
       let(:app) { allowed_app.app }
-      let(:jwt) { JwtGenerator.new(allowed_app).call[:jwt] }
+      let(:jwt) { JwtRefreshResponseGenerator.new(allowed_app).call[:jwt] }
       it 'returns that jwt is valid' do
-        expect(subject).to eq(response: { message: 'Valid token' }, status: :success)
+        expect(subject).to eq(response: { message: 'Valid token' }, status: :ok)
       end
     end
 
     context 'valid app and expired jwt' do
-        let(:jwt_generator) {JwtGenerator.new(allowed_app)}
+        let(:jwt_refresh_response_generator) {JwtRefreshResponseGenerator.new(allowed_app)}
         
         let(:allowed_app) { create(:allowed_app) }
         let(:app) { allowed_app.app }
-        let(:jwt) { jwt_generator.call[:jwt] }
+        let(:jwt) { jwt_refresh_response_generator.call[:jwt] }
         it 'returns that jwt is valid' do
-          allow(jwt_generator).to receive(:exp).and_return(Time.now.to_i - 1000)
+          allow(jwt_refresh_response_generator).to receive(:exp).and_return(Time.now.to_i - 1000)
           expect(subject).to eq({ response: { error: 'Expired token' }, status: :unauthorized })
         end
     end
@@ -30,7 +30,7 @@ RSpec.describe JwtChecker do
     context 'nil app and valid jwt' do
       let(:allowed_app) { create(:allowed_app) }
       let(:app) { nil }
-      let(:jwt) { JwtGenerator.new(allowed_app).call[:jwt] }
+      let(:jwt) { JwtRefreshResponseGenerator.new(allowed_app).call[:jwt] }
       it 'returns Unknown entities' do
         expect(subject).to eq(response: { error: 'Unknown entities' }, status: :unauthorized)
       end
@@ -49,7 +49,7 @@ RSpec.describe JwtChecker do
       let!(:allowed_app_1) { create(:allowed_app) }
       let!(:allowed_app_2) { create(:allowed_app) }
       let(:app) { allowed_app_1.app }
-      let(:jwt) { JwtGenerator.new(allowed_app_2).call[:jwt] }
+      let(:jwt) { JwtRefreshResponseGenerator.new(allowed_app_2).call[:jwt] }
       it 'returns Unknown entities' do
         expect(subject).to eq(response: { error: 'Verification Signature Fail' }, status: :unauthorized)
       end

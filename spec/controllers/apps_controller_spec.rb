@@ -127,12 +127,12 @@ RSpec.describe AppsController, type: :controller do
     end
   end
 
-  describe 'GET #reset_jwt_secret' do
-    it 'changes the jwt_rsa_private_key' do
+  describe 'GET #reset_rsa_key_pair' do
+    it 'changes the rsa_private_key' do
       app = App.create! valid_attributes
       expect do
-        get :reset_jwt_secret, params: { id: app.to_param }, session: valid_session
-      end.to change { app.reload.jwt_rsa_private_key }
+        get :reset_rsa_key_pair, params: { id: app.to_param }, session: valid_session
+      end.to change { app.reload.rsa_private_key }
     end
   end
 end

@@ -30,7 +30,7 @@
         <td class="table-cell" data-href="<%= user_path(user) %>">
           <%= show_permissions_state(user.permissions_state) %>
         </td>
-        <td><%= link_to 'Apps', user_allowed_apps_path(user), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Configure Apps', user_allowed_apps_path(user), class: 'btn btn-info' %></td>
         <td><%= link_to 'Edit', edit_user_path(user), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>

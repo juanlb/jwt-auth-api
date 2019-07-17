@@ -1,15 +1,17 @@
 <dl class="row">
   <dt class="col-sm-3">
+    Email:
+  </dt>
+  <dd class="col-sm-9">
+    <h4>
+      <%= @user.email %>
+    </h4>
+  </dd>
+  <dt class="col-sm-3">
     Name:
   </dt>
   <dd class="col-sm-9">
       <%= @user.name %>
-  </dd>
-  <dt class="col-sm-3">
-    Email:
-  </dt>
-  <dd class="col-sm-9">
-      <%= @user.email %>
   </dd>
   <dt class="col-sm-3">
     Enabled:
@@ -33,17 +35,17 @@
     Apps:
   </dt>
   <dd class="col-sm-9">
-      <%= @user.allowed_apps.map { |allowed_app| link_to "#{allowed_app.app.name} #{permission_state(allowed_app)}".html_safe, user_allowed_app_path(@user, allowed_app) }.join(', ').html_safe %>
+      <%= @user.allowed_apps.map { |allowed_app| link_to "#{allowed_app.app.name} #{permission_state(allowed_app)}".html_safe, allowed_app_path(allowed_app) }.join(' ').html_safe %>
   </dd>
 </dl>
 
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-primary' %>
-<%= link_to 'Set Password', password_user_path(@user), class: 'btn btn-primary' %>
 <% end %>
 
 <% content_for :operations do %>
-<%= link_to 'Configure Apps', user_allowed_apps_path(@user), class: 'btn btn-primary' %>
+<%= link_to 'Set Password', password_user_path(@user), class: 'btn btn-primary' %>
 <%= link_to 'Reset User Key', reset_user_key_user_path(@user), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
 <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'Configure Apps', user_allowed_apps_path(@user), class: 'btn btn-info' %>
 <% end %>

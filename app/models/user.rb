@@ -34,7 +34,7 @@ class User < ApplicationRecord
   end
 
   def reset_user_key
-    update_attribute(:user_key, SecretGenerator.generate(24))
+    update_attribute(:user_key, SecretGenerator.generate(64))
   end
 
   def jwt_attributes
@@ -47,7 +47,7 @@ class User < ApplicationRecord
   private
 
   def set_secrets
-    self.user_key = SecretGenerator.generate(24)
+    self.user_key = SecretGenerator.generate(64)
     self.salt = BCrypt::Engine.generate_salt
   end
 end

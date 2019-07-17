@@ -1,10 +1,9 @@
-<%= render 'user_app', user: @user, allowed_app: @allowed_app %>
+<%= render 'user_app_status' %>
 
 <h1>Editing Allowed App</h1>
 
 <%= render 'form', allowed_app: @allowed_app %>
 
-
 <% content_for :operations do %>
-<%= link_to 'Show', user_allowed_app_path(@user, @allowed_app), class: 'btn btn-primary' %>
+<%= link_to 'Show', allowed_app_path(@allowed_app), class: 'btn btn-primary' %>
 <% end %>

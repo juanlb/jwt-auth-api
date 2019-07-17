@@ -1,0 +1,33 @@
+<%= render 'app_link' %>
+
+<h1>Users</h1>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Permissions</th>
+      <th>Valid Permissions</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @app.allowed_apps.each do |allowed_app| %>
+      <tr>
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
+          <%= allowed_app.user.name %>
+        </td>
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
+<pre>
+<small><%= json_pretty_generate(allowed_app.permissions) %></small>
+</pre>        </td>
+        <td class="table-cell" data-href="<%= allowed_app_path(allowed_app) %>">
+          <%= permission_state(allowed_app) %><%=  %>
+        </td>
+        <td><%= link_to 'Edit', edit_allowed_app_path(allowed_app), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', allowed_app_path(allowed_app), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

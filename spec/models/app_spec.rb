@@ -35,16 +35,16 @@ RSpec.describe App, type: :model do
     end
   end
 
-  describe '#reset_jwt_secret' do
+  describe '#reset_rsa_key_pair' do
     context 'with previous jwt_secret' do
       subject {create(:app)}
 
-      it 'change jwt_rsa_private_key' do
-        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_rsa_private_key}
+      it 'change rsa_private_key' do
+        expect{subject.reset_rsa_key_pair}.to change {subject.reload.rsa_private_key}
       end
 
-      it 'change jwt_rsa_public_key' do
-        expect{subject.reset_jwt_secret}.to change {subject.reload.jwt_rsa_public_key}
+      it 'change rsa_public_key' do
+        expect{subject.reset_rsa_key_pair}.to change {subject.reload.rsa_public_key}
       end
     end
   end
@@ -61,12 +61,12 @@ RSpec.describe App, type: :model do
         expect(subject.app_key).to start_with('app-name-')
       end
 
-      it 'jwt_rsa_private_key be something' do
-        expect(subject.jwt_rsa_private_key).not_to be_empty
+      it 'rsa_private_key be something' do
+        expect(subject.read_attribute(:rsa_private_key)).not_to be_empty
       end
 
-      it 'jwt_rsa_public_key be something' do
-        expect(subject.jwt_rsa_public_key).not_to be_empty
+      it 'rsa_public_key be something' do
+        expect(subject.rsa_public_key).not_to be_empty
       end
 
       it 'permissions be an Hash' do
@@ -99,14 +99,14 @@ RSpec.describe App, type: :model do
     context 'edit name' do
       subject { create(:app) }
 
-      it 'dont change jwt_rsa_private_key' do
+      it 'dont change rsa_private_key' do
         subject.name = 'otro'
-        expect { subject.save }.to_not change { subject.reload.jwt_rsa_private_key }
+        expect { subject.save }.to_not change { subject.reload.read_attribute(:rsa_private_key) }
       end
 
-      it 'dont change jwt_rsa_public_key' do
+      it 'dont change rsa_public_key' do
         subject.name = 'otro'
-        expect { subject.save }.to_not change { subject.reload.jwt_rsa_public_key }
+        expect { subject.save }.to_not change { subject.reload.rsa_public_key }
       end
 
       it 'dont change app_key' do

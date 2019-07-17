@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2019_07_10_225102) do
     t.string "name"
     t.string "app_key"
     t.string "permissions", default: "--- {}\n"
-    t.text "jwt_rsa_private_key"
-    t.text "jwt_rsa_public_key"
+    t.text "rsa_private_key"
+    t.text "rsa_public_key"
     t.integer "timeout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
