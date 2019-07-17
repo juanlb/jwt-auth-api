@@ -17,25 +17,23 @@ class JwtRefreshResponseGenerator
   private
 
   def payload
-    {
-      exp: exp,
-      permissions_valid: allowed_app.valid?,
-    }.merge(JSON.parse(allowed_app.permissions))
-     .merge(allowed_app.user.jwt_attributes)
-     .merge(allowed_app.app.jwt_attributes)
-  end
+    pl = { permissions_valid: allowed_app.valid? }
+    pl[:exp] = exp if exp
+    pl.merge(JSON.parse(allowed_app.permissions))
+      .merge(allowed_app.user.jwt_attributes)
+      .merge(allowed_app.app.jwt_attributes)
+    end
 
   def exp
-    Time.now.to_i + allowed_app.app.timeout
+    Time.now.to_i + allowed_app.app.timeout if allowed_app.app.timeout > 0
   end
 
   def refresh_token
-    allowed_app.refresh_token.destroy if allowed_app.refresh_token
+    allowed_app.refresh_token&.destroy
     allowed_app.create_refresh_token(token: SecretGenerator.generate(64)).token
   end
 
   def jwt
-    JwtGenerator(payload, allowed_app.app.rsa_private_key).call
+    JsonWebToken.encode(payload, allowed_app.app.rsa_private_key)
   end
-
 end

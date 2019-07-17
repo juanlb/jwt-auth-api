@@ -25,7 +25,7 @@ Requiere los campos:
 * Permissions
 
 `Name` es un nombre descriptivo para la aplicación.
-`Timeout` es el tiempo en segundos que tendrá como parámetro `exp` el JWT. Es el tiempo en el que el token generado expirará y será inválido para su uso.
+`Timeout` es el tiempo en segundos que tendrá como parámetro `exp` el JWT. Es el tiempo en el que el token generado expirará y será inválido para su uso. En caso de poner el valor `0`, el token no tendrá tiempo de expiración.
 `Permissions` son los atributos necesarios que deben ser seteados para un usuario cuando se lo vincula con esta aplicación. Es un parámetro que requiere el ingreso de un JSON válido, con una determinada estructura.
 
 #### Permissions
@@ -155,7 +155,7 @@ Para el ejemplo que vimos más arriba:
 
 Endpoints disponibles:
 
-### /api/v1/auth
+### /api/v1/auth/login
 
 Este endpoint entrega un JWT válido para el user y la app solicitado.
 
@@ -201,7 +201,7 @@ En caso de **caulquier** campo inválido, la respuesta será:
 ```
 con `status:400 Bad Request`
 
-### /api/v1/refresh
+### /api/v1/auth/refresh
 
 Este endpoint es para obtener un nuevo JWT para cuado el anterior esté expirado.
 
@@ -231,7 +231,7 @@ En caso de **caulquier** campo inválido, la respuesta será:
 ```
 con `status:400 Bad Request`
 
-### /api/v1/valid
+### /api/v1/auth/valid
 
 Este endpoint sirve para validar si un JWT es válido y no está expirado.
 Este endpoint se provee solo por si no se quiere incluir el control del JWT dentro de la aplicación que se está asegurando.
@@ -240,7 +240,7 @@ Este endpoint se provee solo por si no se quiere incluir el control del JWT dent
 
 ```
 {
-  "jwt_token": "jwt_to_evaluate",
+  "jwt": "jwt_to_evaluate",
   "app_key": "valid_app_key"
 }
 ```
@@ -267,7 +267,7 @@ Este endpoint se provee solo por si no se quiere incluir el control del JWT dent
 ```
 `status: 401 unauthorized`
 
-### /api/v1/public_key
+### /api/v1/auth/public_key
 
 Endpoint para bajar la clave pública de una determinada `App`.
 #### Parametros

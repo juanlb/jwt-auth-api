@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      post 'jwt/auth'
-      post 'jwt/refresh'
-      post 'jwt/valid'
-      post 'jwt/public_key'
+      post 'auth/login'
+      post 'auth/refresh'
+      post 'auth/valid'
+      get 'auth/public_key'
     end
   end
 

@@ -48,8 +48,11 @@ class App < ApplicationRecord
   end
 
   def api_jwt
-    payload = {app_key: app_key}
-    JwtGenerator(payload, allowed_app.app.rsa_private_key).call
+    payload = {
+      app_id: id,
+      app_key: app_key
+    }
+    JsonWebToken.encode(payload)
   end
 
   private

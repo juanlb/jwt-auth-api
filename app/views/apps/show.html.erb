@@ -25,7 +25,16 @@
   <dd class="col-sm-9" style="word-wrap: break-word;">
 <pre>
 <%= @app.jwt_rsa_public_key %>
-</pre>  </dd>
+</pre>
+  </dd>
+  <dt class="col-sm-3">
+    JWT for API
+  </dt>
+  <dd class="col-sm-9" style="word-wrap: break-word;">
+<pre>
+<%= @app.api_jwt %>
+</pre>
+  </dd>
   <dt class="col-sm-3">
     Timeout:
   </dt>
