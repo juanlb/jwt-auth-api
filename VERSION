@@ -1,3 +1,8 @@
+0.2.0
+  API with JWT Auth
+  Better look and feel
+  Removed app_key from API
+  More test
 0.1.0
   First functional version
   Create Apps
