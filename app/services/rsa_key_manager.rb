@@ -10,8 +10,8 @@ class RsaKeyManager
     }
   end
 
-  def load(jwt_rsa_private_key)
-    OpenSSL::PKey::RSA.new jwt_rsa_private_key, pass_phrase
+  def load(rsa_private_key)
+    OpenSSL::PKey::RSA.new rsa_private_key, pass_phrase
   end
 
   private

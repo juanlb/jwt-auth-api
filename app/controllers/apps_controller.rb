@@ -1,5 +1,5 @@
 class AppsController < ApplicationController
-  before_action :set_app, only: [:show, :edit, :update, :destroy, :reset_app_key, :reset_jwt_secret]
+  before_action :set_app, only: [:show, :edit, :update, :destroy, :reset_app_key, :reset_rsa_key_pair]
   before_action :set_fullpage, only: [:index]
   
   # GET /apps
@@ -67,8 +67,8 @@ class AppsController < ApplicationController
     redirect_to @app, notice: 'App Key was successfully updated.'
   end
 
-  def reset_jwt_secret
-    @app.reset_jwt_secret
+  def reset_rsa_key_pair
+    @app.reset_rsa_key_pair
     redirect_to @app, notice: 'JWT Secret was successfully updated.'
   end
 

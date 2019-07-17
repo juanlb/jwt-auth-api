@@ -10,7 +10,7 @@ class JwtChecker
   def call
     return { response: { error: 'Unknown entities' }, status: :unauthorized } if app.nil? || jwt.nil?
 
-    rsa_public_key = OpenSSL::PKey::RSA.new(app.jwt_rsa_public_key)
+    rsa_public_key = OpenSSL::PKey::RSA.new(app.rsa_public_key)
     JsonWebToken.decode(jwt, rsa_public_key)
 
     { response: { message: 'Valid token' }, status: :ok }

@@ -31,7 +31,7 @@ class Api::V1::AuthController < ApiController
     if @app.nil?
       render json: {}, status: :bad_request
     else
-      render json: {public_key: @app.jwt_rsa_public_key}
+      render json: {public_key: @app.rsa_public_key}
     end
   end
 

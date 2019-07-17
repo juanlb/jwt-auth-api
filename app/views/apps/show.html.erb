@@ -6,12 +6,6 @@
      <%= @app.name %>
   </dd>
   <dt class="col-sm-3">
-    App key:
-  </dt>
-  <dd class="col-sm-9">
-     <%= @app.app_key %>
-  </dd>
-  <dt class="col-sm-3">
     Permissions:
   </dt>
   <dd class="col-sm-9">
@@ -20,15 +14,15 @@
 </pre>
   </dd>
   <dt class="col-sm-3">
-    JWT RSA Public Key:
+    RSA Public Key:
   </dt>
   <dd class="col-sm-9" style="word-wrap: break-word;">
 <pre>
-<%= @app.jwt_rsa_public_key %>
+<%= @app.rsa_public_key %>
 </pre>
   </dd>
   <dt class="col-sm-3">
-    JWT for API
+    API Access JWT:
   </dt>
   <dd class="col-sm-9" style="word-wrap: break-word;">
 <pre>
@@ -49,15 +43,12 @@
   </dd>
 </dl>
 
-
-
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_app_path(@app), class: 'btn btn-primary' %>
 <% end %>
 
 <% content_for :operations do %>
-    <%= link_to 'Reset App Key', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
-    <%= link_to 'Reset JWT Secret', reset_jwt_secret_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Reset API Access JWT', reset_app_key_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
+    <%= link_to 'Reset RSA Key pair', reset_rsa_key_pair_app_path(@app), data: { confirm: 'Are you sure?' }, class: 'btn btn-primary' %>
     <%= link_to 'Destroy', @app, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-
 <% end %>

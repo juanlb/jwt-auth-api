@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get 'allowed_apps', to: 'allowed_apps#index_app'
     member do
       get 'reset_app_key'
-      get 'reset_jwt_secret'
+      get 'reset_rsa_key_pair'
     end
   end
 

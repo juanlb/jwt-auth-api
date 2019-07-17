@@ -44,7 +44,7 @@ RSpec.describe JwtRefreshResponseGenerator do
   private
 
   def decoded_jwt(jwt_token, allowed_app)
-    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.jwt_rsa_public_key
+    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.rsa_public_key
     JsonWebToken.decode(jwt_token, rsa_public_key)
   end
 end

@@ -175,7 +175,7 @@ RSpec.describe Api::V1::AuthController, type: :controller do
 
       it 'returns the app public key' do
         get :public_key
-        expect(JSON.parse(response.body)['public_key']).to eq app.jwt_rsa_public_key
+        expect(JSON.parse(response.body)['public_key']).to eq app.rsa_public_key
       end
     end
 
@@ -211,7 +211,7 @@ RSpec.describe Api::V1::AuthController, type: :controller do
   private
 
   def decoded_jwt(response, allowed_app)
-    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.jwt_rsa_public_key
+    rsa_public_key = OpenSSL::PKey::RSA.new allowed_app.app.rsa_public_key
     JsonWebToken.decode(JSON.parse(response.body)['jwt'], rsa_public_key)
   end
 end
