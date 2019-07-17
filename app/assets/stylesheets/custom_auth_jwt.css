@@ -22,4 +22,14 @@ pre {
 
 .table-cell{
     cursor:pointer;
-    }
+}
+
+#div-operations a {
+    @extend .col-sm-12 ;
+    @extend .m-1;
+}
+
+#div-footer a {
+    @extend .col-sm-2 ;
+    @extend .mt-1;
+}

@@ -99,15 +99,16 @@ RSpec.describe UsersController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { name: 'Pedro', email: 'pedro@gmail.com' }
+        { name: 'Pedro', email: 'pedro@gmail.com', enabled: false }
       end
 
-      it 'updates the requested user' do
+      it 'updates the requested user, but not the email' do
         user = User.create! valid_attributes
         put :update, params: { id: user.to_param, user: new_attributes }, session: valid_session
         user.reload
         expect(user.name).to eq 'Pedro'
-        expect(user.email).to eq 'pedro@gmail.com'
+        expect(user.enabled).to be false
+        expect(user.email).not_to eq 'pedro@gmail.com'
       end
 
       it 'redirects to the user' do
@@ -161,7 +162,6 @@ RSpec.describe UsersController, type: :controller do
   describe 'POST #password' do
     let(:user) { User.create! valid_attributes }
     context 'with valid password' do
-
       it 'updates the encrypted_password' do
         expect do
           post :update_password, params: { id: user.to_param, password: '123456' }, session: valid_session

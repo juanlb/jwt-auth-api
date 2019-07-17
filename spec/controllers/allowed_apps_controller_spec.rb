@@ -62,6 +62,12 @@ RSpec.describe AllowedAppsController, type: :controller do
         end.to change(AllowedApp, :count).by(1)
       end
 
+      it 'creates a new AllowedApp anyway, not checked on create' do
+        expect do
+          post :create, params: { user_id: user.id, allowed_app: invalid_attributes }, session: valid_session
+        end.to change(AllowedApp, :count).by(1)
+      end
+
       it 'redirects to the created allowed_app' do
         post :create, params: { user_id: user.id, allowed_app: valid_attributes }, session: valid_session
         expect(response).to redirect_to(user_allowed_apps_path(user))
@@ -72,6 +78,19 @@ RSpec.describe AllowedAppsController, type: :controller do
       it 'returns a success response, no check JSON Schema at create' do
         post :create, params: { user_id: user.id, allowed_app: invalid_attributes }, session: valid_session
         expect(response).to redirect_to(user_allowed_apps_path(user))
+      end
+    end
+
+    context 'without allowed_app param' do
+      it 'returns a success response, exception rescued' do
+        post :create, params: { user_id: user.id }, session: valid_session
+        expect(response).to redirect_to(user_allowed_apps_path(user))
+      end
+
+      it 'no creates a new AllowedApp' do
+        expect do
+          post :create, params: { user_id: user.id }, session: valid_session
+        end.not_to change(AllowedApp, :count)
       end
     end
   end

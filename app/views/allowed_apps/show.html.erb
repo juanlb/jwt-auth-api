@@ -14,6 +14,11 @@
 </tr>
 </table>
 
+<% content_for :operations do %>
+<%= link_to "Apps for <strong>#{@allowed_app.user.name}</strong>".html_safe, user_allowed_apps_path(@allowed_app.user), class: 'btn btn-info' %>
+<%= link_to "Users for <strong>#{@allowed_app.app.name}</strong>".html_safe, app_allowed_apps_path(@allowed_app.app), class: 'btn btn-info' %>
+<% end %>
+
 
 <% content_for :footer do %>
 <%= link_to 'Edit', edit_allowed_app_path(@allowed_app), class: 'btn btn-primary' %>

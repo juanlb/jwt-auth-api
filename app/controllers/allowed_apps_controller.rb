@@ -16,14 +16,10 @@ class AllowedAppsController < ApplicationController
   end
 
   def create
-    @allowed_app =  @user.allowed_apps.build(allowed_app_params)
-    if @allowed_app.valid?
-      @allowed_app.save
-      redirect_to user_allowed_apps_path(@user), notice: 'App was successfully added.'
-    else
-      @allowed_app.destroy
-      render :index
-    end
+    @allowed_app = @user.allowed_apps.create(allowed_app_params)
+    redirect_to user_allowed_apps_path(@user), notice: 'App was successfully added.'
+  rescue ActionController::ParameterMissing => e
+    redirect_to user_allowed_apps_path(@user), alert: 'Something went wrong, no App added.'
   end
 
   def update
@@ -64,6 +60,6 @@ class AllowedAppsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def allowed_app_params
-    params.require(:allowed_app).permit(:app_id,:permissions)
+    params.require(:allowed_app).permit(:app_id, :permissions)
   end
 end
