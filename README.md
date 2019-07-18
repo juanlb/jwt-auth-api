@@ -38,9 +38,11 @@ $ docker-compose build
 $ docker-compose up -d 
 (wait a few seconds for the DB initialize)
 $ docker-compose run -e "RAILS_ENV=test" app rake db:create db:migrate
-$ docker-compose run -e "RAILS_ENV=test" app rake test
+$ docker-compose run -e "RAILS_ENV=test" app rspec
 $ docker-compose down
 ```
+
+Después se puede ver el resultado de `simple-cov` en el directorio `coverage`, montado como volumen en `docker-compose.hyml`
 
 # Utilización
 
