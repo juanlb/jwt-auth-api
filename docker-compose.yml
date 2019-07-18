@@ -1,0 +1,36 @@
+version: '2'
+services:
+  app:   
+    build: .
+    environment:
+      DATABASE_HOST: db 
+      DATABASE_USER: root
+      DATABASE_PASS: root
+      DEFAULT_TOKEN_TIMEOUT: 86400
+      RAILS_ENV: production
+      SECRET_KEY_BASE: AVeryHardSecretToGuess
+      RAILS_SERVE_STATIC_FILES: 'true'
+    links:
+      - db
+    depends_on:
+      - db
+    volumes:
+      - ./coverage:/app/coverage
+  nginx:
+    image: snappler/nginx-reverse-proxy:latest
+    environment:
+      - REQUEST_TIMEOUT=60
+      - DOCKER_NAME=app
+      - DOCKER_PORT=3000
+    ports:
+      - "80:80"
+    links:
+      - app
+    depends_on:
+      - app
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - "4408:3306"                  

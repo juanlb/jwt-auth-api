@@ -15,7 +15,7 @@ class AppsController < ApplicationController
 
   # GET /apps/new
   def new
-    @app = App.new(timeout: ENV.fetch("DEFAULT_TOKEN_TIMEOUT") { 5 })
+    @app = App.new(timeout: ENV.fetch("DEFAULT_TOKEN_TIMEOUT") { 86400 })
   end
 
   # GET /apps/1/edit

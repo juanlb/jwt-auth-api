@@ -4,6 +4,8 @@ class ApiController < ActionController::Base
   skip_before_action :verify_authenticity_token
   before_action :authorize_request
 
+  protected
+
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header

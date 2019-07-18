@@ -6,6 +6,44 @@ Está diseñado para ser una pieza más dentro un conjunto de aplicaciones o API
 
 Si bien está creada para administrar usuarios relacionados con varias apliaciones, debido a su simpleza, sirve perfectamente como servicio de autenticación para una sola app.
 
+# Docker / docker-compose
+
+Correrlo con `docker`.
+**NOTA**: El `docker-compose.yml` utiliza una imagen de `MySQL` sin volumen. Es solo para pruebas, ya que al apagar el container los datos se perderán.
+
+## Ponerlo en marcha:
+
+```
+$ git clone git@github.com:juan-lb/jwt-auth-api.git
+$ cd jwt-auth-api
+$ docker-compose build
+$ docker-compose up -d
+(wait a few seconds for the DB initialize)
+$ docker-compose run app rake db:create db:migrate
+```
+Después entrar en http://localhost
+
+**NOTA**: utiliza el puerto `80`, en caso de tenerlo ocupado, modificar la sección de `nginx` en `docker-compose.yml`.
+
+Para detenerlo
+```
+$ docker-compose down
+```
+## Tests
+
+```
+$ git clone git@github.com:juan-lb/jwt-auth-api.git
+$ cd jwt-auth-api
+$ docker-compose build
+$ docker-compose up -d 
+(wait a few seconds for the DB initialize)
+$ docker-compose run -e "RAILS_ENV=test" app rake db:create db:migrate
+$ docker-compose run -e "RAILS_ENV=test" app rspec
+$ docker-compose down
+```
+
+Después se puede ver el resultado de `simple-cov` en el directorio `coverage`, montado como volumen en `docker-compose.hyml`
+
 # Utilización
 
 El servicio consta de dos partes, un **Dashboard** de configuración y una **Interface API**.

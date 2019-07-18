@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: root
-  socket: /var/run/mysqld/mysqld.sock
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASS'] %>
+  host:     <%= ENV['DATABASE_HOST'] %> 
 
 development:
   <<: *default
@@ -50,5 +50,3 @@ test:
 production:
   <<: *default
   database: jwt-auth-api_production
-  username: jwt-auth-api
-  password: <%= ENV['JWT-AUTH-API_DATABASE_PASSWORD'] %>

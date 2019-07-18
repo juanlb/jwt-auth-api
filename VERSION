@@ -1,3 +1,7 @@
+1.0.0
+  Dockerized
+  SimpleCov with 100% test rate
+  Docker samples in docs
 0.2.0
   API with JWT Auth
   Better look and feel
