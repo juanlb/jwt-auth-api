@@ -1,0 +1,6 @@
+tmp/*
+log/*
+.git
+.gitignore
+/public/assets
+config/application.yml
