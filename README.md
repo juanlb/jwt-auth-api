@@ -17,7 +17,8 @@ Correrlo con `docker`.
 $ git clone git@github.com:juan-lb/jwt-auth-api.git
 $ cd jwt-auth-api
 $ docker-compose build
-$ docker-compose up -d 
+$ docker-compose up -d
+(wait a few seconds for the DB initialize)
 $ docker-compose run app rake db:create db:migrate
 ```
 Después entrar en http://localhost
@@ -35,6 +36,7 @@ $ git clone git@github.com:juan-lb/jwt-auth-api.git
 $ cd jwt-auth-api
 $ docker-compose build
 $ docker-compose up -d 
+(wait a few seconds for the DB initialize)
 $ docker-compose run -e "RAILS_ENV=test" app rake db:create db:migrate
 $ docker-compose run -e "RAILS_ENV=test" app rake test
 $ docker-compose down
