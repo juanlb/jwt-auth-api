@@ -104,17 +104,28 @@ RSpec.describe AppsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested app' do
-      app = App.create! valid_attributes
-      expect do
+    context 'App without related user' do
+      it 'destroys the requested app' do
+        app = App.create! valid_attributes
+        expect do
+          delete :destroy, params: { id: app.to_param }, session: valid_session
+        end.to change(App, :count).by(-1)
+      end
+
+      it 'redirects to the apps list' do
+        app = App.create! valid_attributes
         delete :destroy, params: { id: app.to_param }, session: valid_session
-      end.to change(App, :count).by(-1)
+        expect(response).to redirect_to(apps_url)
+      end
     end
 
-    it 'redirects to the apps list' do
-      app = App.create! valid_attributes
-      delete :destroy, params: { id: app.to_param }, session: valid_session
-      expect(response).to redirect_to(apps_url)
+    context 'App with related user' do
+      let!(:allowed_app) {create(:allowed_app)}
+      it 'dont destroys the requested app' do
+        expect do
+          delete :destroy, params: { id: allowed_app.app.to_param }, session: valid_session
+        end.not_to change(App, :count)
+      end
     end
   end
 

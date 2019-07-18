@@ -58,6 +58,13 @@ RSpec.describe PermissionSchema do
         expect{subject}.to raise_error(/Invalid schema type/)
       end
     end
+
+    context 'with invalid type class' do
+      let(:array) { ['enabled', 1] }
+      it 'return valid output' do
+        expect{subject}.to raise_error(/Invalid schema class/)
+      end
+    end
   end
   describe '#suggestion' do
     subject { PermissionSchema.new(array).suggestion }

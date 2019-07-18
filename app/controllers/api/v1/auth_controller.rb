@@ -28,11 +28,7 @@ class Api::V1::AuthController < ApiController
   end
 
   def public_key
-    if @app.nil?
-      render json: {}, status: :bad_request
-    else
-      render json: {public_key: @app.rsa_public_key}
-    end
+    render json: {public_key: @app.rsa_public_key}
   end
 
   private
